@@ -1,3 +1,6 @@
+name = "LabjackU6Library" 
+uuid = "13a5dcd1-aa46-5f5c-a4e8-ed6ffcbbca62"
+
 [deps]
 Gadfly = "c91e804a-d5a3-530f-b6f0-dfbca275c004"
 IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
