@@ -1,9 +1,7 @@
-push!(LOAD_PATH, "../src/")
-using Documenter, LabjackU6Library
-
+using Documenter
 
 makedocs(
-  sitename = "LabjackU6Library.jl",
+  sitename = "MEA-412 Atmospheric Physics",
   authors = "Markus Petters",
   pages = [
     "Home" => "index.md",
@@ -18,5 +16,5 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/mdpetters/LabjackU6Library.jl.git"
+    repo = "github.com/mdpetters/MEA-412-Notebooks.git"
 )
