@@ -1,18 +1,13 @@
 using Documenter
 
 makedocs(
-  sitename = "MEA-412 Atmospheric Physics",
+  sitename = "Atmospheric Physics",
   authors = "Markus Petters",
   pages = [
     "Home" => "index.md",
-    "Installation" => "installation.md",
-    "API" => [
-        "functions.md",
-        "structures.md"
-    ],
-    "License" => "licence.md"
-  ]
-
+    "Local Installation" => "installation.md",
+    "License" => "license.md" 
+    ]
 )
 
 deploydocs(
