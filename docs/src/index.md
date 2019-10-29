@@ -6,8 +6,11 @@ Instructor/Author: [Markus Petters](https://meas.sciences.ncsu.edu/people/mdpett
 
 Some of the images are taken from other sources. Please see [License](license.md) for author credits.
 
-## Students
+
 The notebooks can be executed in the browser through Binder.
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/MEA-412-Notebooks.git/master)
+
 
 The notebooks can also be executed locally, following the installation instructions
 

@@ -20,26 +20,36 @@ At the prompt type
 ```
 julia> ]
 ```
+to start the package manager. Then, add the following julia packages:
 
-to start the package manager. Then Install the julia package using the add command
-
-```
-pkg> add https://github.com/mdpetters/MEA-412-Notebooks.git
-```
-
-Next, add the following julia packages:
 ```julia
 pkg> add Gadfly Interact WebIO IJulia
 ```
 
-Next, install the WebIO Jupyter extension:
-```julia
-julia> using WebIO
-julia> WebIO.install_jupyter_nbextension()
-```
-
-Finally, start the Jupyter notebook server
+Next, install the Jupyter notebook server
 ```julia
 julia> using IJulia
 julia> notebook()
 ```
+Next, exit the notbook and exit out of the julia REPL session. Restart the REPL.
+and install the WebIO Jupyter extension:
+
+```julia
+julia> using WebIO
+julia> WebIO.install_jupyter_nbextension()
+```
+Finally, download the ZIP'ed notebooks from GitHub: [MEA-412-Notebooks](https://github.com/mdpetters/MEA-412-Notebooks)
+
+![alt text](figures/notebook_zip.png)
+
+Extract the ZIP file to location of your choice (e.g. ```Desktop```). 
+Start the notebook server:
+
+```julia
+julia> using IJulia
+julia> notebook()
+```
+
+Navigate to the extracted folder and open any of the notebooks.
+
+![alt text](figures/Desktop.png)
