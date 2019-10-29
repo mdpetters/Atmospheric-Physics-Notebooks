@@ -15,7 +15,7 @@ Images created by the author of the repository are licensed under the Creative C
 * Author/License: Markus Petters/[CC BY-NC-SA 4.0](CC-BY-NC-SA-4.0.md)
 -----
 * File: ```src/Warm Cloud Formation/figures/cloud1.jpg```
-* Author/License: Versageek/[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)  via Wikimedia Commons\  
+* Author/License: Versageek/[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)  via Wikimedia Commons  
 * [Source](https://commons.wikimedia.org/wiki/File:Sunnystormcloud.jpg)
 
 -----
