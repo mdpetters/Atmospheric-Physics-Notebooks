@@ -39,7 +39,7 @@ function mp1(i,j)
     es1 = T -> 6.1094*exp(17.625*T/(T + 243.04))
     RH = z -> es1.(Tdew(z,zLCL))./es1.(T(z,zLCL)) .* 100.0
  
-    z = 0:10:3000.0
+    z = 0:100:4000.0
     layers = []
     push!(layers, layer(x = [T0], y = [0], color = ["T"]))
     push!(layers, layer(x = T(z,zLCL), y=z./1000, color = ["T" for i in z], Geom.line))
@@ -56,7 +56,7 @@ function mp1(i,j)
     push!(scales, Scale.color_discrete_manual("black", "darkred", "darkgoldenrod3", "steelblue3"))
     
     coords = []    
-    push!(coords,Coord.cartesian(xmin=-40, xmax=20, ymin = 0, ymax = 3))
+    push!(coords,Coord.cartesian(xmin=-40, xmax=20, ymin = 0, ymax = 4))
     p1 = plot(layers..., guides...,scales...,coords...)
 
     layers = []
@@ -67,12 +67,13 @@ function mp1(i,j)
     push!(guides, Guide.xlabel("Relative Humidity (%)"))
     push!(guides, Guide.ylabel("Height (km)"))
     push!(guides, Guide.title("RH profile"))
+    push!(guides, Guide.xticks(ticks=collect(0:20:100)))
 
     scales = []
     push!(scales, Scale.color_discrete_manual("black", "darkgoldenrod3", "darkred", "steelblue3"))
     
     coords = []    
-    push!(coords,Coord.cartesian(xmin=0, xmax=100, ymin = 0, ymax = 3))
+    push!(coords,Coord.cartesian(xmin=0, xmax=100, ymin = 0, ymax = 4))
     p2 = plot(layers..., guides..., scales..., coords...)
 
     layers = []
@@ -85,7 +86,7 @@ function mp1(i,j)
     push!(guides, Guide.title("Liquid water profile"))
 
     coords = []    
-    push!(coords,Coord.cartesian(xmin=0, xmax=2, ymin = 0, ymax = 3))
+    push!(coords,Coord.cartesian(xmin=0, xmax=2, ymin = 0, ymax = 4))
     p3 = plot(layers..., guides..., scales..., coords...)
 
     hstack(p1,p2,p3)
