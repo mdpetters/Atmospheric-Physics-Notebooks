@@ -20,7 +20,7 @@ function mp(i,j)
     coords = []    
     push!(coords,Coord.cartesian(xmin=0, xmax=2, ymin = 0, ymax = 2000))
 
-    p0 = plot(x = s, y = N, Theme(default_color = "steelblue3"), Geom.line, guides..., scales..., coords...)   
+    p0 = plot(x = s, y = N, Theme(default_color = "black"), Geom.line, guides..., scales..., coords...)   
 
     # --------------------------------------------------------------------------
     xticks = log10.([0.08;0.09;collect(0.1:0.1:1);2])
@@ -35,6 +35,8 @@ function mp(i,j)
     push!(guides, Guide.xlabel("Supersaturation (%)"))
     push!(guides, Guide.ylabel("Number concentration (cm<sup>-3</sup>)"))
     push!(guides, Guide.title("N = Cs<sup>k</sup> (logarithmic scale)"))
+    push!(guides, Guide.xticks(ticks=xticks))
+    push!(guides, Guide.yticks(ticks=yticks))
 
     scales = []
     push!(scales, Scale.x_log10(labels = lfunx))
@@ -44,7 +46,7 @@ function mp(i,j)
     coords = []
     push!(coords,Coord.cartesian(xmin=log10(0.08), xmax=log10(2), ymin = log10(1), ymax = log10(2000)))
 
-    p1 = plot(x = s, y = N, Theme(default_color = "steelblue3"), Geom.line, guides..., scales..., coords...)   
+    p1 = plot(x = s, y = N, Theme(default_color = "black"), Geom.line, guides..., scales..., coords...)   
 
     hstack(p0,p1)
 end
