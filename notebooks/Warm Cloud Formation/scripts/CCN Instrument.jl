@@ -1,4 +1,4 @@
-Gadfly.set_default_plot_size(24Gadfly.cm, 7Gadfly.cm)
+
 g = 9.81
 cp = 1005.0
 Lv = 3.3e6
@@ -12,6 +12,7 @@ T0 = 20.0
 
 ΔT = 4.0
 @manipulate for ΔT = 2:0.2:5  
+    Gadfly.set_default_plot_size(24Gadfly.cm, 7Gadfly.cm)
     es(T::Float64) = 610.94*exp(17.625*T/(T+243.04))
     es1 = es(T0)
     es2 = es(T0 + ΔT)

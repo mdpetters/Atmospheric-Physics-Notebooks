@@ -1,2 +1,4 @@
 #!/bin/bash
+pip3 install --user pyrcel 
+julia -e condaenv.jl
 julia -e 'using WebIO; WebIO.install_jupyter_nbextension();'
