@@ -1,4 +1,8 @@
 #!/bin/bash
+pip3 install --user cython
+pip3 install --user numpy
+pip3 install --user pandas
+pip3 install --user wheel
 pip3 install --user pyrcel 
 julia condaenv.jl
 julia -e 'using WebIO; WebIO.install_jupyter_nbextension();'
