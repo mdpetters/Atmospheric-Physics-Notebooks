@@ -1,0 +1,10 @@
+name: atmos-phys
+channels:
+  - conda-forge
+dependencies:
+  - numpy
+  - cython
+  - numba
+  - future
+  - pandas
+  - assimulo
