@@ -1,96 +1,74 @@
-using Gadfly, Interact, Colors
-using SpecialFunctions, Printf
+using PyCall, Gadfly, Printf
 
-s = 0.008:0.01:2
-w0 = 0.1:0.1:20
+g = 9.81
+cp = 1005.0
+Lv = 2.25e6
+Rd = 287.05
+Rv = 461.5
+p0 = 1000.0
+eps = Rd/Rv
+T = 280.0
+alpha1 = 100.0*( eps * Lv * g / (Rd * T^2.0 * cp) - g/(Rd*T))
 
+function pmodel(N,V)
+      pm = pyimport("pyrcel")
 
-@manipulate for C = 50:50:2000, k = 0.2:0.05:1.0, w = [0.1:0.1:0.9;1:1:20]
-    Gadfly.set_default_plot_size(23Gadfly.cm, 9Gadfly.cm)
-    wx = w*100.0
-    BETA = beta(k/2.0,1.5)
-    Nccn = @. C*s^k
-    Nd0 = @. C^(2/(k+2)) * ( (1.6e-3*wx^1.5) / (k*BETA) ) ^ (k/(k+2.0))
-    Nd = @. C^(2/(k+2)) * ( (1.6e-3*(w0.*100.0)^1.5) / (k*BETA) ) ^ (k/(k+2.0))
-    smax = (1.6e-3*wx^1.5 / (C*k*BETA)) ^ (1/(k+2)) 
+      T0 = 280.0
+      S0 = -0.02
+      P0 = 100000.0
+      accom=1.0
+      
 
-   
-    xticks = log10.([collect(0.01:0.01:0.09);collect(0.1:0.1:1)])
-    xtlabel = [0.01, 0.1, 1]
-    ytlabel = [10, 100, 1000]
-    yticks = log10.([1:1:10;20:10:100;200:100:1000])
+      dist = pm.Lognorm(mu=0.05, sigma=2.0, N=N)
+      aer =  pm.AerosolSpecies("ammonium sulfate", dist, kappa=0.6, bins=10)
+      model = pm.ParcelModel([aer,], V, T0, S0, P0, accom=accom, console=false)
+      parcel_trace, aer_out = model.run(t_end=300.0/V, output_dt=1.0/V, solver="cvode", output="dataframes", terminate=false)
+      z  = parcel_trace.z.values
+      T  = parcel_trace.T.values
+      wc = parcel_trace.wc.values.*1000.0
+      S  = parcel_trace.S.values.*100.0
+      z,T,wc,S
+end
 
-    lfunx = x->ifelse(sum(exp10.(x) .== xtlabel) == 1, @sprintf("%.2f", exp10(x)), "")
-    lfuny = x->ifelse(sum(exp10.(x) .== ytlabel) == 1, @sprintf("%i", exp10(x)), "")
+@manipulate for w =  [0.1:0.1:0.9;1:1:20]
+      Gadfly.set_default_plot_size(24Gadfly.cm, 15Gadfly.cm)
 
-    layers = []
-    push!(layers, layer(x = s, y = Nccn, Geom.line,
-          color = ["N<sup>CCN</sup> = Cs<sup>k</sup>" for i = 1:length(s)]))
-    smax00 = round(smax,digits = 2)
-    push!(layers, layer(x = [smax, smax], y = [3.0,Nd0], Geom.line, Geom.point,
-         Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
-         color = ["smax = $smax00 %" for i = 1:2]))
-    Nd00 = round(Nd0,digits = 1)
-    push!(layers, layer(x = [0.001, smax], y = [Nd0,Nd0], Geom.line, Geom.point,
-          color = ["CDNC = $Nd00 cm<sup>-3<sup>" for i = 1:2]))
+      xtlabel = -1:0.5:1.5
+      ytlabel = -20:20:200
+      lfunx = x->ifelse(sum(x .== xtlabel) == 1, @sprintf("%.1f", x), "")
+      lfuny = x->ifelse(sum(x .== ytlabel) == 1, @sprintf("%i", x), "")
+      zarr = 0.0:1:200.0
+      z,T,wc,S = pmodel(500.0, w)
+      zLCL = (z[S .> 0.0])[1]
 
-    guides = []
-    push!(guides, Guide.xlabel("Supersaturation (%)"))
-    push!(guides, Guide.ylabel("CCN Concentration (cm<sup>-3</sup>)"))
-    push!(guides, Guide.title("CDNC from CCN spectrum and smax"))
-    push!(guides, Guide.xticks(ticks=xticks))
-    push!(guides, Guide.yticks(ticks=yticks))
+      layers = []
+      push!(layers, layer(x =-2.0 .+ alpha1.*zarr, y = zarr .- zLCL, Geom.line, Theme(line_style=[:dash]),
+                  color = ["S = α₁*z" for i = 1:length(zarr)]))
 
-    scales = []
-    push!(scales, Scale.x_log10(labels = lfunx))
-    push!(scales, Scale.y_log10(labels = lfuny))
-    push!(scales, Scale.color_discrete_manual("black", "darkred", "darkgoldenrod3", "steelblue3"))
-    
-    coords = []    
-    push!(coords,Coord.cartesian(xmin=log10(0.008), xmax=log10(2.0), ymin = log10(8), ymax = log10(3000)))
+      push!(layers, layer(x = S, y = z .- zLCL, Geom.line(preserve_order=true), 
+            color = ["S(z)" for i = 1:length(S)]))
 
-    p1 = plot(layers..., guides...,scales...,coords...)
+      push!(layers, layer(x = [-1,2], y = [0,0], Geom.line, 
+            color = ["LCL" for i = 1:2]))
 
+      push!(layers, layer(x = [0,0], y = [-30,210], Geom.line, 
+            color = ["LCL" for i = 1:2]))
 
-##-----------------------------------------------------------------------------
+      guides = []
+      push!(guides, Guide.xlabel("Supersaturation (%)"))
+      push!(guides, Guide.ylabel("Height above LCL (m)"))
+      push!(guides, Guide.title("Supersaturation Profile"))
+      push!(guides, Guide.xticks(ticks=-1:0.1:2))
+      push!(guides, Guide.yticks(ticks=-20:10:200))
 
-xticks = log10.([collect(0.1:0.1:0.9);collect(1:1:10);20])
-xtlabel1 = [0.1, 1, 10]
-ytlabel = [10, 100, 1000]
-yticks = log10.([1:1:10;20:10:100;200:100:1000])
+      scales = []
+      push!(scales, Scale.x_continuous(labels = lfunx))
+      push!(scales, Scale.y_continuous(labels = lfuny))
+      push!(scales, Scale.color_discrete_manual("black", "darkred", "darkgoldenrod3", "steelblue3"))
 
-lfunx1 = x->ifelse(sum(exp10.(x) .== xtlabel1) == 1, @sprintf("%.2f", exp10(x)), "")
-lfuny = x->ifelse(sum(exp10.(x) .== ytlabel) == 1, @sprintf("%i", exp10(x)), "")
+      coords = []    
+      push!(coords,Coord.cartesian(xmin=-1, xmax=1.5, ymin = -20, ymax = 200.0))
 
-layers = []
-push!(layers, layer(x = w0, y = Nd, Geom.line,
-      color = ["CDNC = f(C,k,w)" for i = 1:length(w0)]))
-
- push!(layers, layer(x = [w, w], y = [1, Nd0], Geom.line, Geom.point,
- Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
-      color = ["w0 = $w m s<sup>-1</sup>" for i = 1:2]))
-
-push!(layers, layer(x = [0.001, w], y = [Nd0, Nd0], Geom.line, Geom.point,
-     color = ["CDNC = $Nd00 cm<sup>-3<sup>" for i = 1:2]))
-
-
-guides = []
-push!(guides, Guide.xlabel("Updraft velocity (m/s)"))
-push!(guides, Guide.ylabel("CDNC (cm<sup>-3</sup>)"))
-push!(guides, Guide.title("CDNC from Twomey Equation"))
-push!(guides, Guide.xticks(ticks=xticks))
-push!(guides, Guide.yticks(ticks=yticks))
-
-scales = []
-push!(scales, Scale.x_log10(labels = lfunx1))
-push!(scales, Scale.y_log10(labels = lfuny))
-push!(scales, Scale.color_discrete_manual("black", "darkred", "darkgoldenrod3", "steelblue3"))
-
-coords = []    
-push!(coords,Coord.cartesian(xmin=log10(0.08), xmax=log10(20.0), ymin = log10(8), ymax = log10(3000)))
-
-p2 = plot(layers..., guides...,scales...,coords...)
-
-
-    hstack(p1,p2)
+      p1 = plot(layers..., guides...,scales...,coords...)
+      hstack(p1,p1)
 end

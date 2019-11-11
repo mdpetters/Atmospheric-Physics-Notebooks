@@ -4,7 +4,7 @@ function mp1(i,j)
     Gadfly.set_default_plot_size(24Gadfly.cm, 7Gadfly.cm)
     g = 9.81
     cp = 1005.0
-    Lv = 3.3e6
+    Lv = 2.25e6
     Γd = g/cp
     Γdew = 1.9e-3
     Rd = 287.05
