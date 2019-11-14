@@ -30,7 +30,8 @@ function pmodel(N,V)
       z,T,wc,S
 end
 
-@manipulate for w =  [0.1:0.1:0.9;1:1:20]
+x = exp10.(range(log10(0.1), stop=log10(10), length = 100))
+@manipulate throttle = 0.1 for w = x, Nccn = 500:100:5000
       Gadfly.set_default_plot_size(24Gadfly.cm, 15Gadfly.cm)
 
       xtlabel = -1:0.5:1.5
@@ -38,7 +39,9 @@ end
       lfunx = x->ifelse(sum(x .== xtlabel) == 1, @sprintf("%.1f", x), "")
       lfuny = x->ifelse(sum(x .== ytlabel) == 1, @sprintf("%i", x), "")
       zarr = 0.0:1:200.0
-      z,T,wc,S = pmodel(500.0, w)
+      z,T,wc,S = pmodel(Nccn, w)
+      smax = maximum(S)
+      zmax = z[S .== smax]
       zLCL = (z[S .> 0.0])[1]
 
       layers = []
@@ -54,6 +57,15 @@ end
       push!(layers, layer(x = [0,0], y = [-30,210], Geom.line, 
             color = ["LCL" for i = 1:2]))
 
+      smax00 = round(smax,digits=3)
+      zmax00 = round(zmax[end].-zLCL,digits = 0)
+      str = @sprintf("zmax = %i m", zmax[end])
+      push!(layers, layer(x = [smax, smax], y = [-100,zmax[end]-zLCL], Geom.line, Geom.point,
+            Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
+            color = ["smax = $smax00 %" for i = 1:2]))
+      push!(layers, layer(x = [-100, smax], y = [zmax00,zmax00], Geom.line, Geom.point,
+            color = [str for i = 1:2]))
+
       guides = []
       push!(guides, Guide.xlabel("Supersaturation (%)"))
       push!(guides, Guide.ylabel("Height above LCL (m)"))
@@ -64,7 +76,7 @@ end
       scales = []
       push!(scales, Scale.x_continuous(labels = lfunx))
       push!(scales, Scale.y_continuous(labels = lfuny))
-      push!(scales, Scale.color_discrete_manual("black", "darkred", "darkgoldenrod3", "steelblue3"))
+      push!(scales, Scale.color_discrete_manual("black", "darkred", "darkgoldenrod3", "steelblue3", "purple"))
 
       coords = []    
       push!(coords,Coord.cartesian(xmin=-1, xmax=1.5, ymin = -20, ymax = 200.0))
