@@ -1,2 +1,3 @@
-# MEA-412-Notebooks
-MEA 412 Course Notebooks 
+# Atmpspheric-Physics-Notebooks
+
+Jupyter notebooks containing worksheets with interactive apps for learning.
