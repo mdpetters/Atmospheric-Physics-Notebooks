@@ -1,4 +1,4 @@
-using PyCall, Gadfly, Printf
+using PyCall, Gadfly, Printf, Colors, SpecialFunctions
 
 g = 9.81
 cp = 1005.0
@@ -32,7 +32,7 @@ end
 
 x = exp10.(range(log10(0.1), stop=log10(10), length = 100))
 @manipulate throttle = 0.1 for w = x, Nccn = 500:100:5000
-      Gadfly.set_default_plot_size(24Gadfly.cm, 15Gadfly.cm)
+      Gadfly.set_default_plot_size(22Gadfly.cm, 12Gadfly.cm)
 
       xtlabel = -1:0.5:1.5
       ytlabel = -20:20:200
@@ -59,7 +59,7 @@ x = exp10.(range(log10(0.1), stop=log10(10), length = 100))
 
       smax00 = round(smax,digits=3)
       zmax00 = round(zmax[end].-zLCL,digits = 0)
-      str = @sprintf("zmax = %i m", zmax[end])
+      str = @sprintf("zmax = %i m", zmax[end]-zLCL)
       push!(layers, layer(x = [smax, smax], y = [-100,zmax[end]-zLCL], Geom.line, Geom.point,
             Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
             color = ["smax = $smax00 %" for i = 1:2]))
@@ -79,8 +79,51 @@ x = exp10.(range(log10(0.1), stop=log10(10), length = 100))
       push!(scales, Scale.color_discrete_manual("black", "darkred", "darkgoldenrod3", "steelblue3", "purple"))
 
       coords = []    
-      push!(coords,Coord.cartesian(xmin=-1, xmax=1.5, ymin = -20, ymax = 200.0))
+      push!(coords,Coord.cartesian(xmin=-1, xmax=1.5, ymin = -20, ymax = 100.0))
 
       p1 = plot(layers..., guides...,scales...,coords...)
-      hstack(p1,p1)
+
+      κ = 0.6
+      Dg = 0.05e-6
+      A = 2.1e-9
+      σ = 2.0
+      ψ(s) = (4/27)^(1/3)*A/(κ^(1/3)*Dg*log(s/100+1)^(2/3))
+      Af(s) = 1/2*erfc(log.(ψ.(s))/(sqrt(2)*log(σ)))
+      Z = z .- zLCL
+      
+      layers = []
+      ii = (Z.<=(zmax[end]-zLCL)) .& (Z.>=0.0)
+      jj = (Z.>=(zmax[end]-zLCL))
+      y = [Z[ii];Z[jj]]
+      x = [Nccn.*Af.(S[ii]); [Nccn.*Af.(smax) for i = 1:sum(jj)]]
+      CDNC = Nccn.*Af.(smax)
+      push!(layers, layer(x = x, y = y, Geom.line, 
+                        color = ["CDNC(z)" for i = 1:length(x)]))
+
+      str1 = @sprintf("CDNC = %i cm<sup>-3</sup>", CDNC)
+      push!(layers, layer(x = [CDNC, CDNC], y = [-100,zmax[end]-zLCL], Geom.line, Geom.point,
+            Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
+                 color = [str1 for i = 1:2]))
+      push!(layers, layer(x = [-1000, CDNC], y = [zmax00,zmax00], Geom.line, Geom.point,
+                  color = [str for i = 1:2]))
+            
+
+      guides = []
+      push!(guides, Guide.xlabel("CDNC (cm-3)"))
+      push!(guides, Guide.ylabel("Height above LCL (m)"))
+      push!(guides, Guide.title("Cloud Droplet Number Concentration Profile"))
+      push!(guides, Guide.xticks(ticks=0:1000:5000))
+      push!(guides, Guide.yticks(ticks=-20:10:100))
+
+      scales = []
+      # push!(scales, Scale.x_continuous(labels = lfunx))
+      # push!(scales, Scale.y_continuous(labels = lfuny))
+      push!(scales, Scale.color_discrete_manual("black", "steelblue3", "purple"))
+
+      coords = []    
+       push!(coords,Coord.cartesian(xmin=0, xmax=5000, ymin = -20, ymax = 100.0))
+
+      p2 = plot(layers..., guides...,scales...,coords...)
+
+      hstack(p1,p2)
 end

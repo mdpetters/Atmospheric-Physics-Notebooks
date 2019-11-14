@@ -91,6 +91,5 @@ push!(coords,Coord.cartesian(xmin=log10(0.08), xmax=log10(20.0), ymin = log10(8)
 
 p2 = plot(layers..., guides...,scales...,coords...)
 
-
     hstack(p1,p2)
 end
