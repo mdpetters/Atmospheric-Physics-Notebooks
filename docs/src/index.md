@@ -1,4 +1,4 @@
-# Atmospheric Physics
+# Atmospheric Physics Notebooks
 Author: [Markus Petters](https://meas.sciences.ncsu.edu/people/mdpetter/)
 
 This repository contains Jupyter notebooks used to supplement instruction in MEA-412: Atmospheric Physics [(Course Catalog)](http://catalog.ncsu.edu/undergraduate/coursedescriptions/mea/) taught in the [Department of Marine, Earth, and Atmospheric Sciences](https://meas.sciences.ncsu.edu/) at [NC State University](https://www.ncsu.edu/). 

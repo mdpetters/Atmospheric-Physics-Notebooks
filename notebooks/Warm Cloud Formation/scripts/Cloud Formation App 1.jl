@@ -1,4 +1,4 @@
-using Gadfly, Interact
+using Gadfly, Interact, Colors
 
 function mp1(i,j) 
     Gadfly.set_default_plot_size(24Gadfly.cm, 7Gadfly.cm)

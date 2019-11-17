@@ -2,7 +2,7 @@
 The Jupyter notebooks and associated worksheets are based on Process Oriented Guided Inquiry Learning [POGIL](https://pogil.org/) pedagogy. Students construct knowlege by interacting with the web-apps and by collaborating in small teams. 
 
 ## Hosting
-The notebooks can be executed in the browser through binder. Binder serves a complete Jupyter;Julia environment in your browser. Click on the badge below to launch it.
+The notebooks can be executed in the browser through binder. Binder serves a complete Jupyter/Julia environment in your browser. Click on the badge below to launch it.
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/master)
 
@@ -30,7 +30,7 @@ The apps are programmed using the [Julia Progamming Language](https://julialang.
 * [Interact.jl](https://juliagizmos.github.io/Interact.jl/stable/) for reactive widgets
 * [Documenter.jl](https://juliadocs.github.io/Documenter.jl/stable/) for creating the documentation
 * [Makie.jl](http://makie.juliaplots.org/stable/) for GPU plotting and movie animations
-* [PyCall;.jl](https://github.com/JuliaPy/PyCall.jl) for calling Python-based parcel model
+* [PyCall.jl](https://github.com/JuliaPy/PyCall.jl) for calling Python-based parcel model
 * [IJulia.jl](https://github.com/JuliaLang/IJulia.jl) for Jupyter Integration
 * [WebIO.jl](https://github.com/JuliaGizmos/WebIO.jl) for rendering Apps
 
@@ -46,5 +46,5 @@ The main cons are
 * Grammar of graphics code can be verbose.
 * The syntax is very different than most other scientific plotting packages (e.g. MATLAB, python, IDL).
 
-Interact works with most of the available plotting packages (e.g. [Plots.jl](http://docs.juliaplots.org/latest/), [GR.jl](https://github.com/jheinen/GR.jl)). In fact, the
+Interact.jl works with most of the available plotting packages (e.g. [Plots.jl](http://docs.juliaplots.org/latest/), [GR.jl](https://github.com/jheinen/GR.jl)). In fact, the
 first version of these notebooks used Plots.jl. Note that [Makie.jl](http://makie.juliaplots.org/stable/) is very promising but requires cloud-based GPU resources to be deployed effectively in this context.
