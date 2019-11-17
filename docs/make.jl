@@ -7,7 +7,7 @@ makedocs(
    "Introduction" => "index.md",
    "Local Installation" => "installation.md",
    "License" => "license.md",
-   "Instructors" => "instructors.md"
+   "For Instructors" => "instructors.md"
     ]
 )
 
