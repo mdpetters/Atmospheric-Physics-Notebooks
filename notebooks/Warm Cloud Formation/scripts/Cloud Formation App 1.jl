@@ -92,9 +92,9 @@ function mp1(i,j)
     hstack(p1,p2,p3)
 end
 
-T0 = widget(["0", "5", "10", "15", "20"]; value = "10")
-Tdew0 = widget(["-20", "-15", "-10", "-5", "0"]; value = "0")
+Td = HTML(string("<div style='color:#", hex(RGB(0.8,0,0)), "'>Dew-point temperature</div>"))
+T0 = widget(["0", "5", "10", "15", "20"]; value = "10", label = "Temperature")
+Tdew0 = widget(["-20", "-15", "-10", "-5", "0"]; value = "0", label = Td)
 p1 = map((i,j)->mp1(i,j), observe(T0), observe(Tdew0))
 display(p1)
-display("   Tdew-values             T-values")
 display(hbox(pad(0.5em, Tdew0), pad(0.5em, T0)))

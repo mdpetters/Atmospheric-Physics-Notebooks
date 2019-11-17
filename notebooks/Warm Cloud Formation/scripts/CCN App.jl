@@ -1,4 +1,4 @@
-using Printf
+using Printf, Colors
 
 function mp(i,j)
     Gadfly.set_default_plot_size(20Gadfly.cm, 8Gadfly.cm)
@@ -51,10 +51,10 @@ function mp(i,j)
     hstack(p0,p1)
 end
 
-C = widget(["50", "100", "200", "500", "1000"]; value = "200")
-k = widget(["0.1", "0.5", "1.0"]; value = "0.5")
+kval = HTML(string("<div style='color:#", hex(RGB(0.4,0.4,0.4)), "k-values"))
+C = widget(["50", "100", "200", "500", "1000"]; value = "200", label = "C-values")
+k = widget(["0.1", "0.5", "1.0"]; value = "0.5", label = "k-values")
 p = map((i,j)->mp(i,j), observe(C), observe(k))
 display(p)
-display("     C-values               k-values")
 ui = hbox( pad(0.5em, C), pad(0.5em, k))
 display(ui)

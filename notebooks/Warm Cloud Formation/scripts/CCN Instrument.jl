@@ -27,7 +27,7 @@ T0 = 20.0
     push!(layers, layer(x=[T0, T0+ΔT], y = [0, 1.0], Geom.line, Geom.point, Theme(default_color = "black")))
 
     guides = []
-    push!(guides, Guide.xlabel("Temperature (C)"))
+    push!(guides, Guide.xlabel("Temperature (°C)"))
     push!(guides, Guide.ylabel("Height (cm)"))
     push!(guides, Guide.title("Thermal Profile"))
     

@@ -8,7 +8,7 @@ The notebooks can be executed in the browser through binder. Binder serves a
 complete Jupyter/julia environment in your browser. Click on the badge below to
 launch it.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/MEA-412-Notebooks.git/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/master)
 
 Use the Jupyter file-manager to navigate to a notebook. For example,
 the directory ```src/Warm Cloud Formation``` as shown below.

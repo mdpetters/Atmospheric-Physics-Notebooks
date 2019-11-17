@@ -1,6 +1,4 @@
 python3-pip
 python3-setuptools
 python3-dev
-xorg-dev
-libglfw3
 ffmpeg
