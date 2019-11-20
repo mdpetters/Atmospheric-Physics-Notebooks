@@ -9,7 +9,7 @@ function cloud_app4(T0, Tdew0, C, k, w0)
     Rd = 287.05
     Rv = 461.5
     p0 = 1000.0
-    z = 0:1:4000
+    z = 0:1:6000
     rhow = 1000.0
     s = 0.01:0.01:2
     w = 0.1:0.1:10
@@ -56,7 +56,7 @@ function cloud_app4(T0, Tdew0, C, k, w0)
 
     es1 = T -> 6.1094*exp(17.625*T/(T + 243.04))
     RH = z -> es1.(Tdew(z,zLCL))./es1.(T(z,zLCL)) .* 100.0
-    z = 0:10:4000.0
+    z = 0:200:10000.0
  
     p = @. 100*p0*exp(-z/8000.0)
     Tk = T(z,zLCL).+273.15
@@ -94,7 +94,7 @@ function cloud_app4(T0, Tdew0, C, k, w0)
     push!(scales, Scale.color_discrete_manual("black", "darkgoldenrod3","darkred","steelblue3"))
     
     coords = []    
-    push!(coords,Coord.cartesian(xmin=0, xmax=4, ymin = 0, ymax = 4))
+    push!(coords,Coord.cartesian(xmin=0, xmax=8, ymin = 0, ymax = 10))
     p1 = plot(layers..., guides...,scales...,coords...)
 
 
@@ -164,15 +164,15 @@ function cloud_app4(T0, Tdew0, C, k, w0)
     push!(scales, Scale.color_discrete_manual("black", "darkgoldenrod3","darkred","steelblue3"))
 
     coords = []    
-    push!(coords,Coord.cartesian(xmin=0, xmax=40, ymin = 0, ymax = 4))
+    push!(coords,Coord.cartesian(xmin=0, xmax=40, ymin = 0, ymax = 10))
     p3 = plot(layers..., guides...,scales...,coords...)
 
     hstack(p2,p1,p3)
 end
 
 Td = HTML(string("<div style='color:#", hex(RGB(0.8,0,0)), "'>Dew-point temperature</div>"))
-T0 = widget(["0", "5", "10", "15", "20"]; value = "10", label = "Temperature")
-Tdew0 = widget(["-20", "-15", "-10", "-5", "0"]; value = "0", label = Td)
+T0 = widget(["0", "5", "10"]; value = "5", label = "Temperature")
+Tdew0 = widget(["-10", "-5", "0"]; value = "0", label = Td)
 C = slider(50:50:2000; value = 1000, label = "C")
 k = slider(0.1:0.1:1; value = 0.5, label = "k")
 w = slider(1:1.0:10; value = 5, label = "w")

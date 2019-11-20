@@ -1,5 +1,5 @@
 using PyCall, Gadfly, Printf, Colors, SpecialFunctions
-
+using PyCall
 g = 9.81
 cp = 1005.0
 Lv = 2.25e6
