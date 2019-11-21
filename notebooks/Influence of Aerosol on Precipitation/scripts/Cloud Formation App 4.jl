@@ -1,4 +1,4 @@
-using SpecialFunctions, Gadfly, Colors, Printf
+using SpecialFunctions, Gadfly, Colors, Printf, Interact
 
 function cloud_app4(T0, Tdew0, C, k, w0) 
     g = 9.81
@@ -143,7 +143,7 @@ function cloud_app4(T0, Tdew0, C, k, w0)
 # --------------------------------------------------------------------------
 
     layers = []
-    push!(layers, layer(x = Dm, y=z./1000, color = ["Mean drop radius" for i = 1:length(z)], Geom.line))
+    push!(layers, layer(x = Dm, y=z./1000, color = ["Mean drop diameter" for i = 1:length(z)], Geom.line))
     push!(layers, layer(x = [-2.0,100], y=[zLCL, zLCL]./1000, color = ["LCL = $zLCL0 m" for i = 1:2], Geom.line))
 
     push!(layers, layer(x = [24,24], y = [-2000, y[end]]./1000, Geom.line, Geom.point,
@@ -156,7 +156,7 @@ function cloud_app4(T0, Tdew0, C, k, w0)
     color = [delz for i = 1:2]))
 
     guides = []
-    push!(guides, Guide.xlabel("Droplet radius (µm)"))
+    push!(guides, Guide.xlabel("Droplet diameter (µm)"))
     push!(guides, Guide.ylabel("Height (km)"))
     push!(guides, Guide.title("Droplet radius profile"))
 
@@ -183,6 +183,3 @@ display(hbox(vbox(x1)))
 display(C)
 display(k)
 display(w)
-
-
-#@manipulate for T0 = 0:2:20, Tdew0 = -20:2:20, C = 0:100:2000, k = 0:0.05:1, w0 = [0.1, 1, 2, 5, 10]  
