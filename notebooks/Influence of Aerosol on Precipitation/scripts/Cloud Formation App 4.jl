@@ -1,5 +1,7 @@
 using SpecialFunctions, Gadfly, Colors, Printf, Interact
 
+include("AtmosphericThermodynamics.jl")
+
 function cloud_app4(T0, Tdew0, C, k, w0) 
     g = 9.81
     cp = 1005.0
@@ -9,14 +11,16 @@ function cloud_app4(T0, Tdew0, C, k, w0)
     Rd = 287.05
     Rv = 461.5
     p0 = 1000.0
-    z = 0:1:6000
+    z = 0:1.0:6000
     rhow = 1000.0
     s = 0.01:0.01:2
     w = 0.1:0.1:10
 
     T0 = parse(Float64,T0)
     Tdew0 = parse(Float64,Tdew0)
-
+    if Tdew0 > T0
+        Tdew0 = T0
+    end
     
     Gadfly.set_default_plot_size(27Gadfly.cm, 8Gadfly.cm)
     zLCL = (T0-Tdew0)/(Γd-Γdew)
@@ -36,10 +40,11 @@ function cloud_app4(T0, Tdew0, C, k, w0)
         fb = @. z -> TLCL - Γs*(z-zLCL)
         return [fa(z[z .<= zLCL]); fb(z[z .> zLCL])]
     end
+   
     function wl(z, zLCL)
-        fa = @. z -> z*0.0
-        fb = @. z -> cp/Lv*(Γd - Γs)*(z-zLCL)
-        return [fa(z[z .<= zLCL]); fb(z[z .> zLCL])]
+        Δz = collect(z .- zLCL)
+        Δz[Δz .<= 0.0] .= 0.0
+        AtmosphericThermodynamics.wl.(TLCL+273.15, zLCL, Δz)
     end
     
     zLCL0 = convert(Int, round(zLCL,digits = 0))
@@ -56,45 +61,49 @@ function cloud_app4(T0, Tdew0, C, k, w0)
 
     es1 = T -> 6.1094*exp(17.625*T/(T + 243.04))
     RH = z -> es1.(Tdew(z,zLCL))./es1.(T(z,zLCL)) .* 100.0
-    z = 0:200:10000.0
+    z = 0:10.0:8000.0
  
     p = @. 100*p0*exp(-z/8000.0)
     Tk = T(z,zLCL).+273.15
     rhoa = @. p/(Rd*Tk)
     wlx = wl(z,zLCL)
     LWC = @. wlx.*rhoa./1e6./rhow  # m3 water cm-3 air
+    LWC1 = @. wlx.*rhoa # g water cm-3 air
     Dm = @. (LWC*6/(π*Nd0))^(1/3.0)*1e6
-    y = z[Dm .<= 24]
-    zrain = y[end]
+    y = z[Dm .>= 24]
+    wl0 = wl(z,zLCL).*rhoa
 
-    wl0 = wl(z,zLCL)
-    wl1 = wl0[Dm .<= 24]  
-    wl01 = (round(wl1[end]*1000,digits = 2))
-    z01 = (round(y[end],digits = 0))
+
 
     layers = []
-    push!(layers, layer(x = wl(z,zLCL).*1000, y=z./1000, color = ["w<sub>l</sub>" for i = 1:length(z)], Geom.line))
-    push!(layers, layer(x = [-2.0,20], y=[zLCL, zLCL]./1000, color = ["LCL = $zLCL0 m" for i = 1:2], Geom.line))
-
-    push!(layers, layer(x = [wl01,wl01], y = [-1000.0,y[end]]./1000, Geom.line, Geom.point,
-    Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
-    color = ["w<sub>l</sub> = $wl01 g/kg" for i = 1:2]))
     
-    delz = @sprintf("Δz = %i m", y[end]-zLCL)
-    push!(layers, layer(x = [-100,wl01], y = [y[end],y[end]]./1000, Geom.line, Geom.point,
-    Theme(alphas=[1.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
-    color = [delz for i = 1:2]))
+    push!(layers, layer(x = LWC1*1000, y=z./1000, color = ["LWC" for i = 1:length(z)], Geom.line(preserve_order=true)))
+    push!(layers, layer(x = [-2.0,20], y=[zLCL, zLCL]./1000, color = ["LCL = $zLCL0 m" for i = 1:2], Geom.line(preserve_order=true)))
+
+    if maximum(Dm) >= 24.0
+        wl1 = wl0[Dm .>= 24]
+        wl01 = (round(wl1[1]*1000,digits = 2))
+        push!(layers, layer(x = [wl01,wl01], y = [-1000.0,y[1]]./1000, Geom.line(preserve_order=true), Geom.point,
+        Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
+        color = ["LWC = $wl01 g/m3" for i = 1:2]))
+    
+        delz = @sprintf("Δz = %i m", y[end]-zLCL)
+        push!(layers, layer(x = [-100,wl01], y = [y[1],y[1]]./1000, Geom.line, Geom.point,
+        Theme(alphas=[1.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
+        color = [delz for i = 1:2]))
+    end
 
     guides = []
-    push!(guides, Guide.xlabel("w<sub>l</sub> (g/kg)"))
+    push!(guides, Guide.xlabel("LWC (g/m<sup>3</sup>)"))
     push!(guides, Guide.ylabel("Height (km)"))
     push!(guides, Guide.title("Liquid water profile"))
+    push!(guides, Guide.yticks(ticks=0:1:8))
 
     scales = []
     push!(scales, Scale.color_discrete_manual("black", "darkgoldenrod3","darkred","steelblue3"))
     
     coords = []    
-    push!(coords,Coord.cartesian(xmin=0, xmax=8, ymin = 0, ymax = 10))
+    push!(coords,Coord.cartesian(xmin=0, xmax=5, ymin = 0, ymax = 8))
     p1 = plot(layers..., guides...,scales...,coords...)
 
 
@@ -143,37 +152,46 @@ function cloud_app4(T0, Tdew0, C, k, w0)
 # --------------------------------------------------------------------------
 
     layers = []
-    push!(layers, layer(x = Dm, y=z./1000, color = ["Mean drop diameter" for i = 1:length(z)], Geom.line))
+    push!(layers, layer(x = Dm, y=z./1000, color = ["Mean drop diameter" for i = 1:length(z)], Geom.line(preserve_order=true)))
     push!(layers, layer(x = [-2.0,100], y=[zLCL, zLCL]./1000, color = ["LCL = $zLCL0 m" for i = 1:2], Geom.line))
 
-    push!(layers, layer(x = [24,24], y = [-2000, y[end]]./1000, Geom.line, Geom.point,
-    Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
-    color = ["Autoconversion" for i = 1:2]))
+    if maximum(Dm) >= 24.0
+        push!(layers, layer(x = [24,24], y = [-2000, y[1]]./1000, Geom.line, Geom.point,
+        Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
+        color = ["Autoconversion" for i = 1:2]))
 
-    delz = @sprintf("Δz = %i m", y[end]-zLCL)
-    push!(layers, layer(x = [-100,24], y = [y[end],y[end]]./1000, Geom.line, Geom.point,
-    Theme(alphas=[1.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
-    color = [delz for i = 1:2]))
+        delz = @sprintf("Δz = %i m", y[1]-zLCL)
+        push!(layers, layer(x = [-100,24], y = [y[1],y[1]]./1000, Geom.line, Geom.point,
+        Theme(alphas=[1.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
+        color = [delz for i = 1:2]))
+    else
+        push!(layers, layer(x = [24,24], y = [-2000, 20000]./1000, Geom.line, Geom.point,
+        Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
+        color = ["Autoconversion" for i = 1:2]))
+    end
+
 
     guides = []
     push!(guides, Guide.xlabel("Droplet diameter (µm)"))
     push!(guides, Guide.ylabel("Height (km)"))
     push!(guides, Guide.title("Droplet radius profile"))
+    push!(guides, Guide.yticks(ticks=0:1:8))
+
 
     scales = []
     push!(scales, Scale.color_discrete_manual("black", "darkgoldenrod3","darkred","steelblue3"))
 
     coords = []    
-    push!(coords,Coord.cartesian(xmin=0, xmax=40, ymin = 0, ymax = 10))
+    push!(coords,Coord.cartesian(xmin=0, xmax=40, ymin = 0, ymax = 8))
     p3 = plot(layers..., guides...,scales...,coords...)
 
     hstack(p2,p1,p3)
 end
 
 Td = HTML(string("<div style='color:#", hex(RGB(0.8,0,0)), "'>Dew-point temperature</div>"))
-T0 = widget(["0", "5", "10"]; value = "5", label = "Temperature")
-Tdew0 = widget(["-10", "-5", "0"]; value = "0", label = Td)
-C = slider(50:50:2000; value = 1000, label = "C")
+T0 = widget(["0", "5", "10", "15", "20"]; value = "5", label = "Temperature")
+Tdew0 = widget(["-10", "-5", "0", "5", "10", "15"]; value = "0", label = Td)
+C = slider(50:50:2000; value = 500, label = "C")
 k = slider(0.1:0.1:1; value = 0.5, label = "k")
 w = slider(1:1.0:10; value = 5, label = "w")
 p1 = map((i,j,k,l,m)->cloud_app4(i,j,k,l,m), observe(T0), observe(Tdew0), observe(C), observe(k), observe(w))
