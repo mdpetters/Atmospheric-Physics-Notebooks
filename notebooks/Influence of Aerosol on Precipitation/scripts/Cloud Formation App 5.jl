@@ -1,5 +1,7 @@
 using Gadfly, CSV
 
+import AtmosphericThermodynamics
+
 df1 = CSV.read("figures/Andreae Blue Ocean.txt")
 df1[!,:Regime] = ["Blue Ocean" for i = 1:length(df1[!,:D])]
 df1[!,:Sample] = ["1" for i = 1:length(df1[!,:D])]

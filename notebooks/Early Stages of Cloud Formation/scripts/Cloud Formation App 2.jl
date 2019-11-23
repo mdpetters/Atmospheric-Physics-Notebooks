@@ -1,14 +1,4 @@
 using PyCall, Gadfly, Printf, Colors, SpecialFunctions
-using PyCall
-g = 9.81
-cp = 1005.0
-Lv = 2.25e6
-Rd = 287.05
-Rv = 461.5
-p0 = 1000.0
-eps = Rd/Rv
-T = 280.0
-alpha1 = 100.0*( eps * Lv * g / (Rd * T^2.0 * cp) - g/(Rd*T))
 
 function pmodel(N,V)
       pm = pyimport("pyrcel")
@@ -33,6 +23,16 @@ end
 x = exp10.(range(log10(0.1), stop=log10(10), length = 100))
 @manipulate throttle = 0.1 for w = x, Nccn = 500:100:5000
       Gadfly.set_default_plot_size(22Gadfly.cm, 12Gadfly.cm)
+
+      g = 9.81
+      cp = 1005.0
+      Lv = 2.25e6
+      Rd = 287.05
+      Rv = 461.5
+      p0 = 1000.0
+      eps = Rd/Rv
+      T = 280.0
+      alpha1 = 100.0*( eps * Lv * g / (Rd * T^2.0 * cp) - g/(Rd*T))      
 
       xtlabel = -1:0.5:1.5
       ytlabel = -20:20:200

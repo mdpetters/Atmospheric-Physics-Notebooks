@@ -1,5 +1,7 @@
 using Gadfly, Interact, Colors
 
+import AtmosphericThermodynamics
+
 function mp1(i,j) 
     Gadfly.set_default_plot_size(24Gadfly.cm, 7Gadfly.cm)
     g = 9.81
@@ -21,25 +23,43 @@ function mp1(i,j)
     Γs = Γd*(1+(Lv*ws)/(Rd*(TLCL+273.15)))/(1+(Lv^2*ws)/(cp*Rv*(TLCL+273.15)^2)) 
 
     function T(z, zLCL)
+        Δz = collect(z .- zLCL)
+        Δz[Δz .<= 0.0] .= 0.0
+        r = AtmosphericThermodynamics.Tp.(TLCL+273.15, zLCL, Δz)
+        T2 = map(i->i[1]-273.15, r)
         fa = @. z -> T0 - Γd*z
         fb = @. z -> TLCL - Γs*(z-zLCL)
-        return [fa(z[z .<= zLCL]); fb(z[z .> zLCL])]
+        T1 = [fa(z[z .<= zLCL]); fb(z[z .> zLCL])]
+        Δz = collect(z .- zLCL)
+        return [T1[Δz .<= 0.0]; T2[Δz .>= 0.0]]
     end
+
     function Tdew(z, zLCL)
+        Δz = collect(z .- zLCL)
+        Δz[Δz .<= 0.0] .= 0.0
+        r = AtmosphericThermodynamics.Tp.(TLCL+273.15, zLCL, Δz)
+        T2 = map(i->i[1]-273.15, r)
         fa = @. z -> Tdew0 - Γdew*z
         fb = @. z -> TLCL - Γs*(z-zLCL)
-        return [fa(z[z .<= zLCL]); fb(z[z .> zLCL])]
+        T1 = [fa(z[z .<= zLCL]); fb(z[z .> zLCL])]
+        Δz = collect(z .- zLCL)
+        return [T1[Δz .<= 0.0]; T2[Δz .>= 0.0]]
     end
+    
     function wl(z, zLCL)
-        fa = @. z -> z*0.0
-        fb = @. z -> cp/Lv*(Γd - Γs)*(z-zLCL)
-        return [fa(z[z .<= zLCL]); fb(z[z .> zLCL])]
+        Δz = collect(z .- zLCL)
+        Δz[Δz .<= 0.0] .= 0.0
+        AtmosphericThermodynamics.wl.(TLCL+273.15, zLCL, Δz)
     end
 
     es1 = T -> 6.1094*exp(17.625*T/(T + 243.04))
     RH = z -> es1.(Tdew(z,zLCL))./es1.(T(z,zLCL)) .* 100.0
  
     z = 0:100:4000.0
+
+    T(z,zLCL)
+
+
     layers = []
     push!(layers, layer(x = [T0], y = [0], color = ["T"]))
     push!(layers, layer(x = T(z,zLCL), y=z./1000, color = ["T" for i in z], Geom.line))
@@ -86,14 +106,14 @@ function mp1(i,j)
     push!(guides, Guide.title("Liquid water profile"))
 
     coords = []    
-    push!(coords,Coord.cartesian(xmin=0, xmax=2, ymin = 0, ymax = 4))
+    push!(coords,Coord.cartesian(xmin=0, xmax=3, ymin = 0, ymax = 4))
     p3 = plot(layers..., guides..., scales..., coords...)
 
     hstack(p1,p2,p3)
 end
 
 Td = HTML(string("<div style='color:#", hex(RGB(0.8,0,0)), "'>Dew-point temperature</div>"))
-T0 = widget(["0", "5", "10", "15", "20"]; value = "10", label = "Temperature")
+T0 = widget(["5", "10", "15", "20"]; value = "10", label = "Temperature")
 Tdew0 = widget(["-20", "-15", "-10", "-5", "0"]; value = "0", label = Td)
 p1 = map((i,j)->mp1(i,j), observe(T0), observe(Tdew0))
 display(p1)

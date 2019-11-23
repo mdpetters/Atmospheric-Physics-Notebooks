@@ -1,6 +1,7 @@
 using SpecialFunctions, Gadfly, Colors, Printf, Interact
 
-include("AtmosphericThermodynamics.jl")
+import AtmosphericThermodynamics
+
 
 function cloud_app4(T0, Tdew0, C, k, w0) 
     g = 9.81
