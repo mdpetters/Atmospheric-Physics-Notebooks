@@ -10,19 +10,27 @@ const kB = 1.318e-23 # Boltzmann constant [J molecule-1 K-1]
 const R = 8.3145     # Universal gas constant [J mol-1 K-1]
 const Rd = 287.5     # Specific gas constant for dry air [J kg-1 K-1]
 const Rv = 461.5     # Specific gas constant for dry air [J kg-1 K-1]
-const cp = 1004.0    # Heat capacity of dry air at constant pressure [J kg-1 K-1] 
+const cp = 1005.5    # Heat capacity of dry air at constant pressure [J kg-1 K-1] 
 const cv = 717.0     # Heat capacity of dry air at constant volume [J kg-1 K-1] 
 const Lv = 2.5e6     # Enthalpy of vaporization [J kg-1]
 const Lf = 0.334e6   # Enthalpy of fusion [J kg-1]
-const rhow = 1000.0  # Density of water at 0C [kg m-3] 
+const rhow = 997.1   # Density of water at 0C [kg m-3] 
 const ϵ = Mv/Md      # Ratio of molecular weights
 const κ = 1.0-cv/cp  # Used in Poisson equation
 
+export g,Mv,Md,NA,kB,R,Rd,Rv,cp,cv,Lv,Lf,rhow,ϵ,κ
+export es,ws,Θ,G
+
+
+Dv(T,p) = 2.11e-5*(T/273.15)^1.94*(1e5/p)                    # Unit [m2 s-1]
+K(T) = 25.87*1e-3(T/293.15)^0.9                                  # Unit [J s-1 m-1 K-1]   
 es(T) = 610.94*exp(17.625*(T-273.15)/((T-273.15) + 243.04))  # saturation vapor pressure
 ws(T,p) = ϵ*es(T)/(p-es(T))                                  # mixing ratio
 Θ(T,p) = T*(1e5/p)^κ                                         # potential temperature 
 z(p) = log(1e5/p)*8000.0                                     # scale height equation
 p(z) = 1e5*exp(-z/8000.0)                                    # scale height equation 
+G(T,p) = 1/((rhow*R*T)/(es(T)*Dv(T,p)*Mv) + (Lv*rhow)/(K(T)*T)*((Lv*Mv)/(T*R)-1.0));
+
 
 function wl(TLCL, zLCL, Δz)
     pLCL = p(zLCL)                             # pressure at LCL

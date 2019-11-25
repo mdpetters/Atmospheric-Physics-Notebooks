@@ -1,4 +1,4 @@
-using Distributions, Gadfly, Interact, Printf
+using Distributions, Gadfly, Interact, Printf, AtmosphericThermodynamics
 
 oLWC = Observable("")
 
@@ -14,9 +14,9 @@ function condensation_app1(Nt,s,tmin)
     s = s/100.0
     N = S.*ΔD;
 
-    G = 1e-11
+    G0 = 1e-11
     a = Dp./2.0
-    Dp2 = 2.0*sqrt.(a.^2 .+ 2.0*G*s*t)
+    Dp2 = 2.0*sqrt.(a.^2 .+ 2.0*G0*s*t)
     
     colors = ["black", "darkred"]
     xticks = log10.(collect([1:1:9;10:10:90;100]))
