@@ -18,6 +18,6 @@ plot(layer(x = df[!,:D],y=df[!,:N],color=df[!,:Regime], Geom.line),
      Guide.ylabel("Droplet Concentration (cm<sup>-3</sup>)"),
      Guide.xlabel("Droplet diameter (m)"), 
      Guide.xticks(ticks = x),
-     Scale.x_log10(labels = x->ifelse(sum(x.==xlabel)==1,@sprintf("%.0e", exp10(x)), "")), 
+     Scale.x_log10(labels = x->ifelse(sum(x.==xlabel)==1,@sprintf("%i", exp10(x)), "")), 
      Scale.color_discrete_manual(colors...),
      Coord.cartesian(xmin=log10(1), xmax=log10(100)))
