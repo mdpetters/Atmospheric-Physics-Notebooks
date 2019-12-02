@@ -526,6 +526,12 @@ git-tree-sha1 = "060c97cfafa7c431dc0dd2bacd8050d57577a859"
 uuid = "30363a11-5582-574a-97bb-aa9a979735b9"
 version = "0.8.1"
 
+[[NumericIO]]
+deps = ["Printf", "Test"]
+git-tree-sha1 = "0cb5fb8157780c06a36b1c7ccaab4fcebed83259"
+uuid = "6c575b1c-77cb-5640-a5dc-a54116c90507"
+version = "0.3.1"
+
 [[ORCA]]
 deps = ["Conda", "HTTP", "JSON", "PlotlyBase"]
 git-tree-sha1 = "64665d3140f2966255793278918b0fffa12d3088"

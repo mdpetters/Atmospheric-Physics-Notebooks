@@ -17,6 +17,7 @@ gengrid(r) = [vcat(map(x->x:x:8x,r)...);r[end]*10]
 
 
 function mplt(T,p,ρ)  
+    Gadfly.set_default_plot_size(17Gadfly.cm, 9Gadfly.cm)
     Dp = gengrid(exp10.(-9:1:-4))
 
     xnames = Dict(-9 =>"1 nm",-8=>"10 nm",-7=>"100 nm",-6=> "1 μm",-5=>"10 μm",-4=>"100 μm",-3=>"1 mm")

@@ -41,7 +41,7 @@ function collision_app2(d)
 
 end
 
-d = togglebuttons(OrderedDict("1 nm"=>1e-9,"10 nm"=>10e-9, "100 nm"=>100e-9,"1 μm"=>1e-6, 
+dsd = togglebuttons(OrderedDict("1 nm"=>1e-9,"10 nm"=>10e-9, "100 nm"=>100e-9,"1 μm"=>1e-6, 
                               "10 μm"=>10e-6,"100 μm"=>100e-6,"1000 μm"=>1000e-6), value = 100e-9, label = "Diameter")
-display(d)
-map(collision_app2, d)
+display(dsd)
+map(collision_app2, dsd)

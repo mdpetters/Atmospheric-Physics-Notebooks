@@ -49,7 +49,7 @@ end
 run[] = false
 function runit()
     label = Observable("(time (s),velocity (m/s),fraction of vt (-))")
-    timer = fps(10.0)
+    timer = fps(5.0)
     
     T,p,ρp = 298.15,1e5,1000.0
     τ = ρp*dps^2.0*Cc(T,p,dps)/(18.0*η(T))
