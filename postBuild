@@ -1,2 +1,3 @@
 #!/bin/bash
 julia -e 'using WebIO; WebIO.install_jupyter_nbextension();'
+ulimit -s 16535
