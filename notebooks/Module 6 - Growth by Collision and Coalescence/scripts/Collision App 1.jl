@@ -1,11 +1,11 @@
 using Gadfly, Compose, Colors, Interact, AtmosphericThermodynamics
 
 run = Observable(true)
-set_default_graphic_size(10Compose.cm, 10Compose.cm)
+timer = Observable(0.0)
 
 function fps(f)
     run[] = false
-    timer = Observable(0.0)
+    
     run[] = true
 
     @async while run[]
@@ -42,42 +42,41 @@ function anim1(t)
        (context(), stroke("black"),arrow(), line([(0.5,0.6), (0.5, 0.85)]), line([(0.5,0.4), (0.5, 0.4-z)]), 
             linewidth(0.5Compose.mm)),
        (context(), text(0.53, 0.86, "F<sub>g</sub> = mg = π/6 D<sup>3</sup> ρ<sub>p</sub> g"),
-            text(0.53, 0.38-z, "F<sub>drag</sub> = 1/2 ρ <sub>air</sub> v <sup>2</sup> C <sub>d</sub>"),
+            text(0.53, 0.38-z, "F<sub>drag</sub> = π/8 C <sub>d</sub> ρ <sub>air</sub> D <sup>2</sup> v <sup>2</sup> "),
                   fill("black"), fontsize(10Compose.pt), stroke(RGBA(1,1,1,0))))
 end
 
 run[] = false
-function runit()
-    label = Observable("(time (s),velocity (m/s),fraction of vt (-))")
-    timer = fps(5.0)
-    
-    T,p,ρp = 298.15,1e5,1000.0
-    τ = ρp*dps^2.0*Cc(T,p,dps)/(18.0*η(T))
-    
-    global vc = map(t->vtx(τ,dps,t), timer)
-    txt = map(i->(round(i,digits = 1),round(vc[],digits = 2),round(vc[]/term,digits = 2)), timer)
-    img = map(anim1, timer) 
-
-    display(img)
-    display(label)
-    display(txt)
-end
+label = Observable("(time (s),velocity (m/s),fraction of vt (-))")
 
 vc = Observable(0.0)
+txt = Observable((0.0,0.0,0.0))
 dps = 800e-6
+Tx,px,ρpx = 298.15,1e5,1000.0
+τ = ρpx*dps^2.0*Cc(Tx,px,dps)/(18.0*η(Tx))
 term = vt(dps)  
 
 onoff = widget(false)
-display(onoff)
 
-function foo(r)
+function collision_app1(r)
+    set_default_graphic_size(10Compose.cm, 10Compose.cm)
+
     if r == true
-        IJulia.clear_output()
-        display(onoff)
-        runit()
+        global timer = fps(5.0)
     else
         run[] = false
+        global timer[] = 0.0
     end
 end
-map(foo, onoff)
-anim1(0)
+
+map(collision_app1, onoff)
+vc = map(t->vtx(τ,dps,t), timer)
+b = map(i->(round(i,digits = 1),round(vc[],digits = 2),round(vc[]/term,digits = 2)), timer)
+c = map(anim1, timer) 
+
+display(onoff)
+display(label)
+display(b)
+display(c)
+
+
