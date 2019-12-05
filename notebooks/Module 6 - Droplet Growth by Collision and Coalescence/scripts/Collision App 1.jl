@@ -5,7 +5,6 @@ timer = Observable(0.0)
 
 function fps(f)
     run[] = false
-    
     run[] = true
 
     @async while run[]
@@ -39,8 +38,8 @@ function anim1(t)
     z = 0.02 + (0.40-0.17)*vc[]/term
     compose(context(), line([g1;g2]), stroke("black"), linewidth(0.1Compose.mm),
        (context(),Compose.circle(0.5, 0+0.5, 0.1), fill("steelblue3"), stroke("white")),
-       (context(), stroke("black"),arrow(), line([(0.5,0.6), (0.5, 0.85)]), line([(0.5,0.4), (0.5, 0.4-z)]), 
-            linewidth(0.5Compose.mm)),
+       (context(), stroke("black"), arrow(), linewidth(0.5Compose.mm),
+            line([(0.5,0.6), (0.5, 0.85)]), line([(0.5,0.4), (0.5, 0.4-z)])), 
        (context(), text(0.53, 0.86, "F<sub>g</sub> = mg = π/6 D<sup>3</sup> ρ<sub>p</sub> g"),
             text(0.53, 0.38-z, "F<sub>drag</sub> = π/8 C <sub>d</sub> ρ <sub>air</sub> D <sup>2</sup> v <sup>2</sup> "),
                   fill("black"), fontsize(10Compose.pt), stroke(RGBA(1,1,1,0))))
@@ -78,5 +77,3 @@ display(onoff)
 display(label)
 display(b)
 display(c)
-
-
