@@ -1,63 +1,59 @@
-using Gadfly, Compose, Colors, Interact, AtmosphericThermodynamics, CSV, Printf
+using Gadfly, Compose, Contour
 
-dfA8 = CSV.read("figures/Ec.csv"; header=false)
-RxA8 = convert(Array{Float64}, dfA8[2:end,1])
-rxA8 = convert(Array{Float64}, Vector(dfA8[1,2:end]))
-Ec = Matrix(dfA8[2:end,2:end])
+function collision_app8()
+    u = 2.0
+    r = 2.0
 
-gengrid(r) = [vcat(map(x->x:x:8x,r)...);r[end]*10]
+    Ψ(a,θ) = 1.0/4.0*u*(2*r^2.0 - 3*a*r +  a^3*r^-1)*sin(θ)^2.0
+    rxx(x,y) = sqrt(x^2 + y^2)
 
-
-function collision_app8(i)
-
-    Gadfly.set_default_plot_size(17Gadfly.cm, 9Gadfly.cm)
-    Et = Ec[i,:]
-    y = Et[.~ismissing.(Et)]
-    x = rxA8[.~ismissing.(Et)]
-    str = "R = "*id[i]*" μm"
-    l = [str for j = 1:length(x)]
-
-    Et = Ec[1,:]
-    y1 = Et[.~ismissing.(Et)]
-    x1 = rxA8[.~ismissing.(Et)]
-    str = "R = "*id[1]*" μm"
-    l1 = [str for j = 1:length(x1)]
-    
-    Et = Ec[end,:]
-    y2 = Et[.~ismissing.(Et)]
-    x2 = rxA8[.~ismissing.(Et)]
-    str = "R = "*id[end]*" μm"
-    l2 = [str for j = 1:length(x2)]
-
-    ynames = Dict(-2 =>"0.01",-1 =>"0.1",0 =>"1")
-
-    function lfun(i)
-        if i == -2
-            "0.01"
-        elseif i == -1
-            "0.1"
-        elseif i == 0
-            "1"
-        else
-            ""
+    function θxx(x,y) 
+        if (x > 0) & (y > 0)
+            atan(y/x)
+        elseif (x < 0) & (y > 0)
+            atan(y/x) + π
+        elseif (x > 0) & (y < 0)
+            atan(y/x) + 2π
+        elseif (x < 0) & (y < 0)
+            atan(y/x) + π
+        elseif (y == 0)
+            atan(0)
+        elseif (x == 0) & (y == 0)
+            atan(0)
         end
     end
-    plot(layer(x = x1, y = y1, Geom.line, Geom.point, color = l1),
-         layer(x = x, y = y, Geom.line, Geom.point, color = l),
-         layer(x = x2, y = y2, Geom.line, Geom.point, color = l2),
-        Guide.yticks(ticks = log10.(gengrid([0.01,0.1]))),
-        Guide.xlabel("Cloud drop radius, r (μm)"),
-        Guide.ylabel("Collision efficiency (-)"),
-        Scale.y_log10(labels = lfun),
-        Scale.color_discrete_manual("black", "steelblue3", "darkgoldenrod3"),
-        Coord.cartesian(xmin = 0, xmax = 30,ymin = log10(0.01), ymax = 0))
+
+    xx =  -4:0.12:16
+    yy =  -6:0.11:6
+    tθ = [θxx(x,y) for x =xx, y = yy]
+    tr = [rxx(x,y) for x = xx, y = yy]
+    tz =  [Ψ(tr[i,j],tθ[i,j]) for i=1:length(xx), j=1:length(yy)] 
+
+    lvl = levels(contours(xx,yy,tz,[0.1,1,4,8,15]))
+    a = map(lvl) do line
+        l = lines(line)
+        map(l) do i
+            xs, ys = coordinates(i) 
+            [((ys[i]+10.0)./20,(xs[i]+5.0)./20) for i = 1:length(xs)]
+        end
+    end
+
+    set_default_graphic_size(10Compose.cm, 10Compose.cm)
+
+    compose(context(), stroke("black"), linewidth(0.15Compose.mm), 
+            line(a[1]), line(a[2]), line(a[3]), line(a[4]), line(a[5]),
+            (context(), Compose.circle(0.5, 0.25, 0.1), fill("steelblue3")),
+            (context(), Compose.circle(0.44, 0.6, 0.03), fill("darkgoldenrod3"), stroke("white")),
+            (context(), Compose.circle(0.37, 0.31, 0.03), fill(RGBA(1,1,1,1)), stroke("black")),
+            (context(), Compose.circle(0.36, 0.24, 0.03), fill(RGBA(1,1,1,1)), stroke("black")),
+            (context(), Compose.circle(0.38, 0.17, 0.03), fill(RGBA(1,1,1,1)), stroke("black")),
+            (context(), Compose.circle(0.58, 0.35, 0.03), fill(RGBA(1,1,1,1)), stroke("black")),
+            (context(), Compose.circle(0.54, 0.58, 0.03), fill("darkred"), stroke("white")),
+            (context(), stroke("black"), arrow(), linewidth(0.25Compose.mm), 
+                        line([(0.5,0.3), (0.5, 0.5)])),
+            (context(), stroke("black"), arrow(), linewidth(0.25Compose.mm), 
+                        line([(0.43,0.57), (0.38, 0.36)]),
+                        line([(0.55,0.55), (0.57, 0.41)])))
 end
 
-vals = OrderedDict("20 μm"=>2,"30 μm"=>3, "40 μm"=>4,"50 μm"=>5, 
-            "60 μm"=>6,"80 μm"=>7, "150 μm"=>9,"200 μm"=>10,
-            "300 μm"=>11,"400 μm"=>12, "500 μm"=>13,
-            "1 mm"=>15,"1.4 mm"=>16, "1.8 mm"=>17,"2.4 mm"=>18)
-id = map(i->@sprintf("%i",i),RxA8   )
-RCA8 = togglebuttons(vals, value  = 3)
-display(RCA8)
-map(collision_app8, RCA8)
+collision_app8()
