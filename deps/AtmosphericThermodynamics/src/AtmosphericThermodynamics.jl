@@ -19,7 +19,7 @@ const ϵ = Mv/Md      # Ratio of molecular weights
 const κ = 1.0-cv/cp  # Used in Poisson equation
 
 export g,Mv,Md,NA,kB,R,Rd,Rv,cp,cv,Lv,Lf,rhow,ϵ,κ
-export es,ws,Θ,G,λ,η,Cc,ρg,Re,Cd,vt
+export es,ws,Θ,G,λ,η,Cc,ρg,Re,Cd,vt,vtp
 
 Dv(T,p) = 2.11e-5*(T/273.15)^1.94*(1e5/p)                    # Unit [m2 s-1]
 K(T) = 25.87*1e-3(T/293.15)^0.9                              # Unit [J s-1 m-1 K-1]   
@@ -56,6 +56,16 @@ function Tp(TLCL, zLCL, Δz)
     p2 = p(zLCL + Δz)                          # p at point above LCL
     f(T) = Θₑ/(1e5 / p2)^κ - ws(T, pLCL)*Lv/cp - T; 
     fzero(f, 250.0), p2                        # Temperature, pressure at Δz
+end
+
+function vtp(D::Float64)    # parameterized terminal velocity for speed/stability
+    if D < 100e-6
+        3.7e7*D^2.0
+    elseif (D >= 100e-6) & (D <= 1000e-6)
+        4.3e3*D
+    else
+        9.65 - 10.3*exp(-600.0*D)
+    end
 end
 
 end
