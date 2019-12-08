@@ -1,14 +1,15 @@
-using AtmosphericThermodynamics, ParameterizedFunctions, DifferentialEquations, Gadfly, CSV, Interpolations
+using AtmosphericThermodynamics, ParameterizedFunctions, DifferentialEquations, Gadfly, 
+using CSV, Interpolations, Printf, Interact
 
 dfA11 = CSV.read("figures/EcLangmuir.csv"; header=false)
 RxA11 = convert(Array{Float64}, dfA11[2:end,1])
 rxA11 = convert(Array{Float64}, Vector(dfA11[1,2:end]))
 Ec11 = Matrix(dfA11[2:end,2:end])
-Ec = LinearInterpolation((RxA11,rxA11), Ec11)  # Ec(R,r)
+EcCA11 = LinearInterpolation((RxA11,rxA11), Ec11)  # Ec(R,r)
 
 ODEs = @ode_def_bare begin
     vR = vtp(2.0*R)
-    E = Ec(R*1e6,r*1e6)
+    E = EcCA11(R*1e6,r*1e6)
     f = c1*E*vR
     dz = (z >= -300.0) ? w - vR  : 0.0
     dR = ((z >= -300.0) & (f < 2.0*R)) ? f + c2/R : 0.0
