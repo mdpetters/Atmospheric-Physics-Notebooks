@@ -1,4 +1,4 @@
-using AtmosphericThermodynamics, ParameterizedFunctions, DifferentialEquations, Gadfly, 
+using AtmosphericThermodynamics, ParameterizedFunctions, DifferentialEquations, Gadfly
 using CSV, Interpolations, Printf, Interact
 
 dfA11 = CSV.read("figures/EcLangmuir.csv"; header=false)
