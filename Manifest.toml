@@ -701,9 +701,9 @@ uuid = "510215fc-4207-5dde-b226-833fc4488ee2"
 version = "0.2.3"
 
 [[OffsetArrays]]
-git-tree-sha1 = "1ae707306f6e33dbb37d0742e08828562772b73f"
+git-tree-sha1 = "27f32af4e7b11f5aa9f3cad60b777cd042af149a"
 uuid = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"
-version = "0.11.2"
+version = "0.11.3"
 
 [[OpenBLAS_jll]]
 deps = ["Libdl", "Pkg"]
