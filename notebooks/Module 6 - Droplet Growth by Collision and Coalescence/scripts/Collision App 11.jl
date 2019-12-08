@@ -7,7 +7,7 @@ Ec11 = Matrix(dfA11[2:end,2:end])
 Ec = LinearInterpolation((RxA11,rxA11), Ec11)  # Ec(R,r)
 
 ODEs = @ode_def_bare begin
-    vR = vtpx(2.0*R)
+    vR = vtp(2.0*R)
     E = Ec(R*1e6,r*1e6)
     f = c1*E*vR
     dz = (z >= -300.0) ? w - vR  : 0.0
