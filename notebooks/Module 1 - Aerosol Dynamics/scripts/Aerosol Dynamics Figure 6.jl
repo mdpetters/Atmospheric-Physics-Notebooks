@@ -15,7 +15,7 @@ function aerosol_app1(Nt, Dg, σg)
     Nmax2 = maximum(𝕘.S[(𝕘.Dp .> Dg*σg) .| (𝕘.Dp .< Dg/σg)])
     𝕘.S[(𝕘.Dp .> Dg*σg) .| (𝕘.Dp .< Dg/σg)] .= 0.0
     label1 = ["D<sub>pg</sub> = $Dg nm" for i=1:2]
-    label2 = @sprintf("%.1f <  D<sub>pg</sub> < %.1f nm", Dg/σg, Dg*σg)
+    label2 = @sprintf("%.1f < D < %.1f nm", Dg/σg, Dg*σg)
     label3 = [@sprintf("N shaded area = %.1f cm<sup>-3</sup>", 0.6827*Nt)  for i=1:1000]
     l0 = layer(x=𝕗.Dp, y = 𝕗.S, color = ["Lognormal function" for i=1:1000], Geom.line)
     l1 = layer(x = [Dg, Dg], y = [-2e3,Nmax1], color = label1, Geom.line, Geom.point,               

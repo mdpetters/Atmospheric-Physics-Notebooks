@@ -7,7 +7,7 @@ function dsd(Dn,Nt,v)
     N = Nt*pdf.(Gamma(v,Dn),Dp).*ΔD
 
     plot(x = Dp,y=N,Geom.step,Guide.ylabel("Droplet Concentration (cm<sup>-3</sup>)"),
-         Guide.xlabel("Droplet diameter (μm)"), Theme(default_color="black", alphas=[0.1]), 
+         Guide.xlabel("Droplet diameter (m)"), Theme(default_color="black", alphas=[0.1]), 
          Scale.x_log10())
 end
 
