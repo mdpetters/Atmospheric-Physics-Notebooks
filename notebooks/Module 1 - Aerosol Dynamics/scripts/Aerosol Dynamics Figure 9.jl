@@ -49,7 +49,7 @@ p4 = plot(layer(x=𝕗.Dp, y = 𝕗.S.*π.*(𝕗.Dp.*1e-3).^3.0./6.0*2.0, Geom.l
           layer(xmin = 𝕟.De[1:end-1], xmax = 𝕟.De[2:end], y = 𝕟.S.*π.*(𝕟.Dp.*1e-3).^3.0./6.0*2.0, Geom.bar), 
           Theme(default_color="steelblue3"),
           Guide.xlabel("Particle diameter (nm)"),
-          Guide.ylabel("dM/dlnD (g m <sup>-3</sup>)"),
+          Guide.ylabel("dM/dlnD (μg m <sup>-3</sup>)"),
           Guide.title("Mass Spectral Density"),
           Guide.xticks(ticks = log10.([30:10:100;200;300])),
           Scale.x_log10(labels = lfunx),
