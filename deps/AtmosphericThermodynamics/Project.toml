@@ -4,5 +4,4 @@ authors = ["Markus Petters <mdpetter@ncsu.edu>"]
 version = "0.1.0"
 
 [deps]
-DifferentialMobilityAnalyzers = "050a7be8-18f9-52d6-bdba-0a194485d082"
 Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
