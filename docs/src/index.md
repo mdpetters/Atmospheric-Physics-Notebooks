@@ -15,7 +15,7 @@ the directory ```/notebooks/Module 1 - Aerosol Dynamics``` as shown below.
 
 ![alt text](figures/Desktop.png)
 
-Start the notebook ```Module 1 - Aerosol Dynamics.ipynb``` and "Run All Below". Make sure to <b> wait </b> until the kernel is initialized.
+Start the notebook ```Module 1 - Aerosol Dynamics.ipynb``` and "Run All Below". Make sure to **wait** until the kernel is initialized.
 
 ![alt text](figures/Cells.png)
 

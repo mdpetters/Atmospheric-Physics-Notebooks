@@ -1,5 +1,5 @@
 ## Overview
-The materials are designed for undergraduate students who have completed an introductory class in <i> Atmospheric Science </i> and <i> Atmospheric Thermodynamics</i>. However, the modules are also suitable to supplement graduate student instruction and also be used by professionals who seek simple introductory materials on the topic.
+The materials are designed for undergraduate students who have completed an introductory class in *Atmospheric Sciences* and *Atmospheric Thermodynamics*. However, the modules are also suitable to supplement graduate student instruction and also be used by professionals who seek simple introductory materials on the topic.
 
 The modules are designed for students to construct knowledge by interacting with the web-apps. They can do so by working alone or collaborating in small teams. The modules are interconnected and somewhat build on each other. However, the modules can also be used independently as assignments for special topics in graduate classes, which include a more mathematical treatment of the subject.
 
@@ -7,17 +7,15 @@ There is ~5 min spin-up time to initialize a module, which includes login to the
 
 When used in a class setting, some of the individual apps are introduced with mini lectures. Students can work alone or in groups interacting with the individual apps in the module on prompt. This is followed by a whole-class discussion, soliciting responsed from each group, clearing up muddy points, and summarizing the main takeaway messages. Some of the exercises are specifically designed as homework, e.g. the programming exercises. Others can be assigned as either in-class or homework assignment, depdending on the class flow. 
 
-Modules are grouped by topic and <b> not </b> tailored to be completed within a single class period.
+Modules are grouped by topic and **not** tailored to be completed within a single class period.
 
 ## Notable Influences
-The module content and design have been influenced by
-
-* Process Oriented Guided Inquiry Learning [POGIL](https://pogil.org/) pedagogy. Although the modules do not strictly apply all POGIL components, they embrace the idea that knowledge is constructed by the learner by actively manipulating, concepts, data and equations using peer instruction. 
+* Process Oriented Guided Inquiry Learning [POGIL](https://pogil.org/) pedagogy. Although the modules do not strictly apply all POGIL components, they embrace the idea that knowledge is constructed by the learner through actively manipulating, concepts, data and equations using peer instruction. 
 * Rogers, R.R. and Yau, M.K.: [A Short Course in Cloud Physics](https://www.amazon.com/s?k=A+Short+Course+in+Cloud+Physics&i=stripbooks-intl-ship&ref=nb_sb_noss). Especially the collision/coalescence chapter.
 * Bjorn Stevens: [Twelve Lectures in Cloud Physics](https://www.mpimet.mpg.de/fileadmin/staff/stevensbjorn/teaching/skript-5.pdf). Especially the scripts' minimalist approach distilling the topics to its essentials.
-* Hinds, W. C.: [Aerosol Technology](https://www.amazon.com/Aerosol-Technology-Properties-Measurement-Particles/dp/0471194107).
+* Hinds, W. C.: [Aerosol Technology](https://www.amazon.com/Aerosol-Technology-Properties-Measurement-Particles/dp/0471194107). Especially the author's extensive example calculations.
+* Petty, G. W.: [A First Course in Atmospheric Radiation](https://sundogpublishingstore.myshopify.com/products/a-first-course-in-atmospheric-radiation-g-w-petty). 
 * [Glossary of Meteorology](http://glossary.ametsoc.org/wiki/Main_Page). Used for definitions of key concepts.
-* The authors' preferences related to topic selection and preference to include examples with real and imperfect data. 
 
 ## Hosting
 The notebooks can be executed in the browser through binder. Binder serves a complete Jupyter/Julia environment in your browser. Click on the badge below to launch it.

@@ -42,7 +42,7 @@ Finally, download the ZIP'ed notebooks from GitHub: [Atmospheric-Physics-Noteboo
 
 ![alt text](figures/notebook_zip.png)
 
-Extract the ZIP file to location of your choice (e.g. ```Documents```).
+Extract the ZIP file to location of your choice (e.g. ```Documents```). Next restart ```julia``` and perform the following additional installations. This step only needs to be performed once.
 
 ```julia
 julia> cd("Path/To/Atmospheric-Physics-Notebooks")
@@ -52,7 +52,7 @@ pkg> dev deps/DifferentialMobilityAnalyzers/
 pkg> add Calculus LambertW LinearAlgebra Random SpecialFunctions StatsBase
 ```
 
-Start the notebook server:
+Finally, start the notebook server:
 
 ```julia
 julia> using IJulia
@@ -62,3 +62,15 @@ julia> notebook()
 Navigate to the extracted folder and open any of the notebooks, i.e. files with with the ```.ipynb``` extension.
 
 ![alt text](figures/Desktop.png)
+
+Start the notebook ```Module 1 - Aerosol Dynamics.ipynb``` and "Run All Below". Make sure to **wait** until the kernel is initialized.
+
+![alt text](figures/Cells.png)
+
+During the first execution of the notebook julia compiles some code. Time of first execution is ~2-5 min. Once a cell has been processed a number appears in parenthesis, e.g. ```In[1]```
+
+![alt text](figures/Example.png)
+
+The notebook is now ready. You can interact with the graphs using the widgets provided with each element. It is not necessary to execute the cells again.
+
+Note that the widget state can become corrupted during execution. It is good policy to run "Restart Kernel & Clear All Output", followed by saving the notebook.  
