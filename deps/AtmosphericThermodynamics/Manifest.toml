@@ -157,7 +157,7 @@ version = "1.0.0"
 deps = ["Calculus", "DataFrames", "Distributions", "Glob", "IJulia", "Interpolations", "LambertW", "LinearAlgebra", "LsqFit", "NetCDF", "ORCA", "PlotlyJS", "Plots", "Printf", "ProgressMeter", "Random", "SpecialFunctions", "StatsBase", "Test"]
 path = "../DifferentialMobilityAnalyzers"
 uuid = "050a7be8-18f9-52d6-bdba-0a194485d082"
-version = "0.0.0"
+version = "2.0.0"
 
 [[Distributed]]
 deps = ["Random", "Serialization", "Sockets"]

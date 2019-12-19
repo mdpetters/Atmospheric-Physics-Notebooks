@@ -37,7 +37,7 @@ uuid = "bf4720bc-e11a-5d0c-854e-bdca1663c893"
 version = "0.1.0"
 
 [[AtmosphericThermodynamics]]
-deps = ["Roots"]
+deps = ["DifferentialMobilityAnalyzers", "Roots"]
 path = "deps/AtmosphericThermodynamics"
 uuid = "b4d6eff7-c201-489a-94cf-8f68d947ac67"
 version = "0.1.0"
@@ -283,7 +283,7 @@ version = "6.6.0"
 deps = ["Calculus", "DataFrames", "Distributions", "Glob", "IJulia", "Interpolations", "LambertW", "LinearAlgebra", "LsqFit", "NetCDF", "ORCA", "PlotlyJS", "Plots", "Printf", "ProgressMeter", "Random", "SpecialFunctions", "StatsBase", "Test"]
 path = "deps/DifferentialMobilityAnalyzers"
 uuid = "050a7be8-18f9-52d6-bdba-0a194485d082"
-version = "0.0.0"
+version = "2.0.0"
 
 [[DimensionalPlotRecipes]]
 deps = ["LinearAlgebra", "RecipesBase"]
