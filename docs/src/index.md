@@ -11,25 +11,19 @@ launch it.
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/master)
 
 Use the Jupyter file-manager to navigate to a notebook. For example,
-the directory ```src/Warm Cloud Formation``` as shown below.
+the directory ```/notebooks/Module 1 - Aerosol Dynamics``` as shown below.
 
-![alt text](figures/Docker.png)
+![alt text](figures/Desktop.png)
 
-Start the notebook ```Warm Cloud Formation.ipynb``` and "Run All Below".
+Start the notebook ```Module 1 - Aerosol Dynamics.ipynb``` and "Run All Below". Make sure to <b> wait </b> until the kernel is initialized.
 
 ![alt text](figures/Cells.png)
 
-During the first execution of the notebook julia compiles some code. 
-Time of first execution is ~2 min. Once a cell has been processed a 
-number appears in parenthesis, e.g. ```In[1]```
+During the first execution of the notebook julia compiles some code. Time of first execution is ~2-5 min. Once a cell has been processed a number appears in parenthesis, e.g. ```In[1]```
 
 ![alt text](figures/Example.png)
 
-The notebook is now ready. You can interact with the graphs using the 
-widgets provided with each element. It is not necessary to execute 
-the cells again. However, the notebook is a complete programming environment. 
-Second execution of the code is fast. Indivual cells can be executed using 
-CTRL-ENTER.
+The notebook is now ready. You can interact with the graphs using the widgets provided with each element. It is not necessary to execute the cells again. However, the notebook is a complete programming environment. Second execution of the code is fast. Indivual cells can be executed using CTRL-ENTER.
 
 Binder watches for activity. After ~10 min of inactivity, the container is destroyed. 
 Once the container is destroyed the computing environment is closed and the buttons become unresponsive. 
