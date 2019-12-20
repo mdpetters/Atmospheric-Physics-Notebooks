@@ -1,6 +1,8 @@
 using Gadfly, CSV, DataFrames, Interact, Printf
 
 function rain_app2(N₀,μ,Λ)
+	Gadfly.set_default_plot_size(17Gadfly.cm, 9Gadfly.cm)
+
 	D = 0.0:0.1:10
 	N(D) = N₀*D^μ*exp(-Λ*D)
 	tstr = @sprintf("N₀ [m<sup>-3</sup> mm<sup>%.1f</sup>], μ [-], Λ [mm<sup>-1</sup>]",-1.0-μ)

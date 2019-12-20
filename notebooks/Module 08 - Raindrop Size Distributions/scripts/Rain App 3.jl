@@ -21,6 +21,8 @@ function ulbricht1(D,R,μ)
 end
 
 function rain_app3(RR, μ)
+	Gadfly.set_default_plot_size(17Gadfly.cm, 9Gadfly.cm)
+
 	D = 0.0:0.1:5
 	N₀(μ) = 6e3*0.1^μ*exp(3.2*μ)
 	Λ(μ,D₀) = (3.67 + μ)/D₀

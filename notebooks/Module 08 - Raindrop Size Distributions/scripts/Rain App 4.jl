@@ -45,6 +45,8 @@ function momentsorig(R,μ)
 end
 
 function rain_app4()
+	Gadfly.set_default_plot_size(17Gadfly.cm, 9Gadfly.cm)
+
 	tRR = 3.0
 	μ = 0.5
 	De = collect(0:0.5:5.0)
