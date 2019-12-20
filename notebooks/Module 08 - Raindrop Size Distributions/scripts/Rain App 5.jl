@@ -1,15 +1,5 @@
 using Gadfly, CSV, DataFrames, SpecialFunctions, NumericIO, Interact
 
-df1 = CSV.read("figures/Marshall Palmer 1 mm hr-1.txt")
-df1[!,:R] = ["R = 1 mm hr<sup>-1</sup>" for i = 1:length(df1[!,:N])]
-
-df2 = CSV.read("figures/Marshall Palmer 5 mm hr-1.txt")
-df2[!,:R] = ["R = 5 mm hr<sup>-1</sup>" for i = 1:length(df2[!,:N])]
-
-df3 = CSV.read("figures/Marshall Palmer 25 mm hr-1.txt")
-df3[!,:R] = ["R = 25 mm hr<sup>-1</sup>" for i = 1:length(df3[!,:N])]
-
-df = [df1;df2;df3]
 
 function ulbricht1(D,R,μ)
 	N₀(μ) = 6e3*0.1^μ*exp(3.2*μ)
@@ -20,7 +10,7 @@ function ulbricht1(D,R,μ)
 	N₀(μ)*D^μ*exp(-Λ(μ,D₀)*D)
 end
 
-function rain_app3(RR, μ)
+function rain_app5(μ)
 	D = 0.0:0.1:5
 	N₀(μ) = 6e3*0.1^μ*exp(3.2*μ)
 	Λ(μ,D₀) = (3.67 + μ)/D₀
@@ -47,7 +37,6 @@ end
 
 gengrid(r) = [vcat(map(x->x:x:8x,r)...);r[end]*10]
 
-RRRA3 = slider([0.1;1:1:10;15:5:50], value = 3.0, label = "Rainfall rate [mm hr-1]")
-μRA3 = slider(-3:0.1:3, value = 0.0, label = "μ")
-display(hbox(RRRA3,μRA3))
-map(rain_app3,RRRA3,μRA3)
+μRA5 = slider(-3:0.1:3, value = 0.0, label = "μ")
+display(μRA5)
+map(rain_app5,μRA5)
