@@ -5,9 +5,10 @@ makedocs(
   authors = "Markus Petters",
   pages = [
    "Introduction" => "index.md",
+   "Content" => "content.md",
    "Local Installation" => "installation.md",
-   "License" => "license.md",
-   "For Instructors" => "instructors.md"
+   "For Instructors" => "instructors.md",
+   "License" => "license.md"
     ]
 )
 
