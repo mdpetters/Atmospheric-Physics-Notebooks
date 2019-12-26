@@ -1,21 +1,24 @@
 using Gadfly, Printf, DataFrames, Dates, CSV, Colors
 
-hfdma = CSV.read("scripts/hfdma.csv")
-lhfdma = CSV.read("scripts/lhfdma.csv")
-uhfdma = CSV.read("scripts/uhfdma.csv")
-rdma = CSV.read("scripts/rdma.csv")
-lrdma = CSV.read("scripts/lrdma.csv")
-urdma = CSV.read("scripts/urdma.csv")
-pops = CSV.read("scripts/pops.csv")
-lpops = CSV.read("scripts/lpops.csv")
-upops = CSV.read("scripts/upops.csv")
+function get_csv()
+        hfdma = CSV.read("scripts/hfdma.csv")
+        lhfdma = CSV.read("scripts/lhfdma.csv")
+        uhfdma = CSV.read("scripts/uhfdma.csv")
+        rdma = CSV.read("scripts/rdma.csv")
+        lrdma = CSV.read("scripts/lrdma.csv")
+        urdma = CSV.read("scripts/urdma.csv")
+        pops = CSV.read("scripts/pops.csv")
+        lpops = CSV.read("scripts/lpops.csv")
+        upops = CSV.read("scripts/upops.csv")
+        hfdma, lhfdma, uhfdma, rdma, lrdma, urdma, pops, lpops, upops
+end
 
 gengrid(r) = [vcat(map(x->x:x:9x,r)...);r[end]*10]
 cfun(c) = RGBA{Float32}(c.r,c.g,c.b,1)
 
 function aerosol_app2(j)
         Gadfly.set_default_plot_size(20Gadfly.cm, 8Gadfly.cm)
-
+        hfdma, lhfdma, uhfdma, rdma, lrdma, urdma, pops, lpops, upops = get_csv()
         Dhf = convert(Vector, hfdma[1,2:end])
         Shf = convert(Matrix, hfdma[2:end,2:end])
         Slhf = convert(Matrix, lhfdma[2:end,2:end])
@@ -36,7 +39,6 @@ function aerosol_app2(j)
         xlabel = log10.([5, 10, 20, 50, 100, 200, 500, 1000, 2000])
         lfunx = x->ifelse(sum(x .== xlabel) == 1, @sprintf("%i",exp10(x)), "")
 
-        #l0 = layer(x=𝕗.Dp, y = 𝕗.S, color = ["Lognormal function" for i=1:1000], Geom.line)
         l0 = layer(x=Dhf, y = Shf[j,:], ymin=Slhf[j,:], ymax=Suhf[j,:], Geom.line, Geom.ribbon,
                 color = ["SMPS2" for i=1:length(Dhf)], Theme(alphas=[0.2],lowlight_color=cfun))
         l1 = layer(x=Drd, y = Srd[j,:], ymin=Slrd[j,:], ymax=Surd[j,:], Geom.line, Geom.ribbon,
@@ -50,8 +52,6 @@ function aerosol_app2(j)
                 Scale.color_discrete_manual(colors...),
                 Guide.xticks(ticks = log10.(gengrid([1,10,100,1000]))),
                 Scale.x_log10(labels = lfunx),
-                #Scale.y_log10(),
-                #Coord.cartesian(xmin=log10(4), xmax=log10(5000),ymin = -2))
                 Coord.cartesian(xmin=log10(4), xmax=log10(3000)))
 end
 

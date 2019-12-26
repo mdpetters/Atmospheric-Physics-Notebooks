@@ -28,7 +28,7 @@ Supo = convert(Matrix, upops[2:end,2:end])
 gengrid(r) = [vcat(map(x->x:x:9x,r)...);r[end]*10]
 cfun(c) = RGBA{Float32}(c.r,c.g,c.b,1)
 
-function aerosol_app3(j,Nt1,Dg1,σg1,Nt2,Dg2,σg2, Nt3,Dg3,σg3,Nt4,Dg4,σg4)
+function aerosol_app4(j,Nt1,Dg1,σg1,Nt2,Dg2,σg2, Nt3,Dg3,σg3,Nt4,Dg4,σg4)
         Gadfly.set_default_plot_size(20Gadfly.cm, 18Gadfly.cm)
 
         𝕗 = lognormal([[Nt1, Dg1, σg1],[Nt2, Dg2, σg2],[Nt3, Dg3, σg3],[Nt4, Dg4, σg4]]; 
@@ -113,7 +113,7 @@ display(hbox(b2, pad(0.5em,σg2)))
 display(hbox(b3, pad(0.5em,σg3)))
 display(hbox(b4, pad(0.5em,σg4)))
 display(map((j,Nt1,Dg1,σg1,Nt2,Dg2,σg2,Nt3,Dg3,σg3,Nt4,Dg4,σg4) -> 
-        aerosol_app3(j,Nt1,Dg1,σg1,Nt2,Dg2,σg2,Nt3,Dg3,σg3,Nt4,Dg4,σg4), 
+        aerosol_app4(j,Nt1,Dg1,σg1,Nt2,Dg2,σg2,Nt3,Dg3,σg3,Nt4,Dg4,σg4), 
         observe(time),
         throttle(dt, observe(Nt1)), throttle(dt, observe(Dg1)), throttle(dt, observe(σg1)),
         throttle(dt, observe(Nt2)), throttle(dt, observe(Dg2)), throttle(dt, observe(σg2)),

@@ -1,3 +1,6 @@
 #!/bin/bash
 julia -e 'using WebIO; WebIO.install_jupyter_nbextension();'
+cp /srv/julia/pkg/packages/GR/oiZD3/deps/gr/lib/*.so /srv/julia/lib/julia
+julia -e 'using Fezzik; Fezzik.auto_trace();'
+julia -e 'cd("notebooks/Module 01 - Aerosol Dynamics/"); include("../../src/create_sysimg.jl")'
 ulimit -s 16535

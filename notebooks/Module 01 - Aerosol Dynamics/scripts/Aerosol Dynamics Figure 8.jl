@@ -56,10 +56,9 @@ function fitit(n,m)
             end 
             Solution[] = reduce(*,grr)
         end
-    end
-    
+end
 
-function aerosol_app2(j,Nt1,Dg1,σg1,Nt2,Dg2,σg2, Nt3,Dg3,σg3,Nt4,Dg4,σg4)
+function aerosol_app3(j,Nt1,Dg1,σg1,Nt2,Dg2,σg2, Nt3,Dg3,σg3,Nt4,Dg4,σg4)
         Gadfly.set_default_plot_size(20Gadfly.cm, 8Gadfly.cm)
 
         𝕗 = lognormal([[Nt1, Dg1, σg1],[Nt2, Dg2, σg2],[Nt3, Dg3, σg3],[Nt4, Dg4, σg4]]; 
@@ -92,7 +91,6 @@ Nt1 = spinbox(0:10.0:10000, value = 0.0, label = "Mode 1: Nt,1 (cm-3)")
 Dg1 = spinbox(1:0.1:20.0, value = 7.0, label = "Dg,1 (nm)")
 σg1 = spinbox(1.1:0.01:2, value = 1.3, label = "σg,1 (-)")
 b1 = hbox(pad(0.5em, Nt1), pad(0.5em, Dg1))
-
 
 Nt2 = spinbox(0:10.0:10000, value = 0.0, label = "Mode 2: Nt,2 (cm-3)")
 Dg2 = spinbox(10:1:100.0, value = 30.0, label = "Dg,2 (nm)")
@@ -129,7 +127,7 @@ display(hbox(b4, pad(0.5em,σg4)))
 display(hbox(hbox(pad(1em,on_mode),pad(1em,tw_mode)),hbox(pad(1em,th_mode),pad(1em,fo_mode))))
 
 display(map((j,Nt1,Dg1,σg1,Nt2,Dg2,σg2,Nt3,Dg3,σg3,Nt4,Dg4,σg4) -> 
-        aerosol_app2(j,Nt1,Dg1,σg1,Nt2,Dg2,σg2,Nt3,Dg3,σg3,Nt4,Dg4,σg4), 
+        aerosol_app3(j,Nt1,Dg1,σg1,Nt2,Dg2,σg2,Nt3,Dg3,σg3,Nt4,Dg4,σg4), 
         observe(time),
         throttle(dt, observe(Nt1)), throttle(dt, observe(Dg1)), throttle(dt, observe(σg1)),
         throttle(dt, observe(Nt2)), throttle(dt, observe(Dg2)), throttle(dt, observe(σg2)),
