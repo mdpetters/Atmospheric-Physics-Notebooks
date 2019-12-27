@@ -47,7 +47,7 @@ RUN julia -e 'import Pkg; Pkg.update()' && \
 RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension();' 
 
 CMD jupyter notebook \
-    --ip=* \
-    --notebook-dir=$HOME/Atmospheric-Physics-Notebooks/notebooks/
+    --ip=* 
+#    --notebook-dir=$HOME/Atmospheric-Physics-Notebooks/notebooks/
 
 
