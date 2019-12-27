@@ -9,7 +9,7 @@ RUN apt-get update && \
 	python3-pip \
     python3-setuptools \
     python3-dev \
-    ffmpeg \
+    ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
 ENV JULIA_DEPOT_PATH=/opt/julia
