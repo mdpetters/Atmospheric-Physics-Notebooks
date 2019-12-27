@@ -15,6 +15,8 @@ RUN apt-get update && \
 ENV JULIA_DEPOT_PATH=/opt/julia
 ENV JULIA_PKGDIR=/opt/julia
 ENV JULIA_VERSION=1.3.0
+ENV JULIA_PROJECT=/Atmospheric-Physics-Notebooks
+
 
 RUN mkdir /opt/julia-${JULIA_VERSION} && \
     cd /tmp && \
@@ -32,17 +34,18 @@ RUN mkdir /etc/julia && \
 
 USER $NB_UID
 
-RUN julia -e 'import Pkg; Pkg.update()' && \
-    julia -e 'import Pkg; Pkg.add("WebIO")' && \
-    julia -e "using Pkg; pkg\"add IJulia\"; pkg\"precompile\"" && \ 
-    mv $HOME/.local/share/jupyter/kernels/julia* $CONDA_DIR/share/jupyter/kernels/ && \
+RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git
+
+RUN julia -e 'using Pkg; Pkg.instantiate()'
+RUN julia -e 'using Pkg; Pkg.status()'
+RUN julia -e 'println(Base.active_project())'
+RUN mv $HOME/.local/share/jupyter/kernels/julia* $CONDA_DIR/share/jupyter/kernels/ && \
     chmod -R go+rx $CONDA_DIR/share/jupyter && \
     rm -rf $HOME/.local && \
     fix-permissions $JULIA_PKGDIR $CONDA_DIR/share/jupyter
 
 #USER root
 
-#RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git
 
 RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension();' 
 
