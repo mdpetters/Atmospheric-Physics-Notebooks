@@ -49,7 +49,7 @@ RUN conda install --yes \
     future \
     pandas \
     assimulo && \
-    conda install -c https://conda.binstar.org/rothnic odespy
+    conda install --yes -c https://conda.binstar.org/rothnic odespy
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
