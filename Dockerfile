@@ -82,7 +82,8 @@ RUN cp $JULIA_PKGDIR/packages/GR/oiZD3/deps/gr/lib/*.so ${JULIA_DEPOT_PATH}-${JU
 
 USER $NB_UID
 
-RUN mkdir $HOME/.julia/config/ && \
+RUN mkdir $HOME/.julia/ && \
+    mkdir $HOME/.julia/config/ && \
     echo 'using Fezzik; Fezzik.trace();' >> $HOME/.julia/config/startup.jl && \
     jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 01 - Aerosol Dynamics/Module 1 - Aerosol Dynamics.ipynb" && \
     jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 02 - Cloud Condensation Nuclei/Module 2 - Cloud Condensation Nuclei.ipynb" && \
