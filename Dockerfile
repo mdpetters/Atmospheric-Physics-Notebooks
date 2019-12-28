@@ -78,11 +78,20 @@ RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension();'
 USER root
 
 RUN cp $JULIA_PKGDIR/packages/GR/oiZD3/deps/gr/lib/*.so ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/
-RUN chmod a+w  ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/
+RUN chmod u+w ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/ && \
+    echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/etc/startup.jl
 
 USER $NB_UID
 
-RUN julia -e 'cd(pwd()*"/Atmospheric-Physics-Notebooks/notebooks/Module 01 - Aerosol Dynamics/"); include("../../src/create_sysimg.jl")'
+RUN jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 notebooks/Module\ 01\ -\ Aerosol\ Dynamics/Module\ 1\ -\ Aerosol\ Dynamics.ipynb && \
+    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 notebooks/Module\ 02\ -\ Cloud\ Condensation\ Nuclei/Module\ 2\ -\ Cloud\ Condensation\ Nuclei.ipynb && \
+    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 notebooks/Module\ 03\ -\ Early\ Stages\ of\ Cloud\ Formation/Module\ 3\ -\ Early\ Stages\ of\ Cloud\ Formation.ipynb && \
+    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 notebooks/Module\ 05\ -\ Droplet\ Growth\ by\ Condensation/Module\ 5\ -\ Droplet\ Growth\ by\ Condensation.ipynb  && \
+    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 notebooks/Module\ 06\ -\ Droplet\ Growth\ by\ Collision\ and\ Coalescence/Module\ 6\ -\ Droplet\ Growth\ by\ Collision\ and\ Coalescence.ipynb && \
+    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 notebooks/Module\ 07\ -\ Influence\ of\ Aerosol\ on\ Precipitation/Module\ 7\ -\ Influence\ of\ Aerosol\ on\ Precipitation.ipynb && \
+    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 notebooks/Module\ 08\ -\ Raindrop\ Size\ Distributions/Module\ 8\ -\ Raindrop\ Size\ Distributions.ipynb 
+
+RUN julia -e 'using Fezzik; Fezzik.brute_build_julia();'
 
 # Set landing page
 CMD jupyter notebook \
