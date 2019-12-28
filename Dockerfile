@@ -77,13 +77,14 @@ RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension();'
 # Copy libraries for Fezzik precompile to succeed
 USER root
 
-RUN cp $JULIA_PKGDIR/packages/GR/oiZD3/deps/gr/lib/*.so ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/
-RUN chmod u+w ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/ && \
-    echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/etc/startup.jl
+RUN cp $JULIA_PKGDIR/packages/GR/oiZD3/deps/gr/lib/*.so ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/ && \
+    chmod u+w ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/ && \
 
 USER $NB_UID
 
-RUN jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 01 - Aerosol Dynamics/Module 1 - Aerosol Dynamics.ipynb" && \
+RUN mkdir $HOME/.julia/config/ && \
+    echo 'using Fezzik; Fezzik.trace();' >> $HOME/.julia/config/startup.jl && \
+    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 01 - Aerosol Dynamics/Module 1 - Aerosol Dynamics.ipynb" && \
     jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 02 - Cloud Condensation Nuclei/Module 2 - Cloud Condensation Nuclei.ipynb" && \
     jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 03 - Early Stages of Cloud Formation/Module 3 - Early Stages of Cloud Formation.ipynb" && \
     jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 05 - Droplet Growth by Condensation/Module 5 - Droplet Growth by Condensation.ipynb"  && \
