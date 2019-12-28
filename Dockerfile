@@ -9,6 +9,7 @@ USER root
 # Install system packages dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+    libfftw3-dev \
     ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
@@ -54,6 +55,7 @@ RUN conda install --yes \
 RUN pip install pyrcel
 
 # Download notebooks
+RUN echo
 RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git
 
 # Activate julia environment and precompile
@@ -70,17 +72,17 @@ RUN mv $HOME/.local/share/jupyter/kernels/julia* $CONDA_DIR/share/jupyter/kernel
 #USER root
 
 # Install WebIO jupyter extension
-RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension()' 
+RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension();' 
+
+# Copy libraries for Fezzik precompile to succeed
+USER root
+
+RUN cp $JULIA_PKGDIR/packages/GR/oiZD3/deps/gr/lib/*.so ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/
+
+USER $NB_UID
 
 RUN julia -e 'cd(pwd()*"/Atmospheric-Physics-Notebooks/notebooks/Module 01 - Aerosol Dynamics/"); include("../../src/create_sysimg.jl")'
 
-# EXPERIMENTAL - use custom compiled julia system image
-#USER root
-
-#RUN 7z x $HOME/Atmospheric-Physics-Notebooks/deps/sysimg/sys.7z && \
-#    mv $HOME/sys.so /opt/julia-1.3.0/lib/julia/sys.so
-
-#USER $NB_UID
 
 # Set landing page
 CMD jupyter notebook \
