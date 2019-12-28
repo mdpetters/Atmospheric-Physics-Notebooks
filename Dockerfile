@@ -70,10 +70,9 @@ RUN mv $HOME/.local/share/jupyter/kernels/julia* $CONDA_DIR/share/jupyter/kernel
 #USER root
 
 # Install WebIO jupyter extension
-RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension();' 
+RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension()' 
 
-RUN cd =$HOME/Atmospheric-Physics-Notebooks/notebooks/Module 01\ -\ Aerosol Dynamics/
-RUN julia -e ../src/create_sysimg.jl
+RUN julia -e 'cd(pwd()*"/Atmospheric-Physics-Notebooks/notebooks/Module 01 - Aerosol Dynamics/"); include("../../src/create_sysimg.jl")'
 
 # EXPERIMENTAL - use custom compiled julia system image
 #USER root
