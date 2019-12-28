@@ -78,10 +78,11 @@ RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension();'
 USER root
 
 RUN cp $JULIA_PKGDIR/packages/GR/oiZD3/deps/gr/lib/*.so ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/
-
-RUN julia -e 'cd(pwd()*"/Atmospheric-Physics-Notebooks/notebooks/Module 01 - Aerosol Dynamics/"); include("../../src/create_sysimg.jl")'
+RUN chmod a+w  ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/
 
 USER $NB_UID
+
+RUN julia -e 'cd(pwd()*"/Atmospheric-Physics-Notebooks/notebooks/Module 01 - Aerosol Dynamics/"); include("../../src/create_sysimg.jl")'
 
 # Set landing page
 CMD jupyter notebook \
