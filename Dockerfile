@@ -49,6 +49,7 @@ RUN conda install --yes \
     future \
     pandas \
     assimulo && \
+    conda install -c https://conda.binstar.org/rothnic odespy
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
@@ -85,13 +86,14 @@ RUN cp $JULIA_PKGDIR/packages/GR/oiZD3/deps/gr/lib/*.so ${JULIA_DEPOT_PATH}-${JU
 USER $NB_UID
 
 RUN echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/etc/julia/startup.jl && \
-    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 01 - Aerosol Dynamics/Module 1 - Aerosol Dynamics.ipynb" && \
-    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 02 - Cloud Condensation Nuclei/Module 2 - Cloud Condensation Nuclei.ipynb" && \
-    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 03 - Early Stages of Cloud Formation/Module 3 - Early Stages of Cloud Formation.ipynb" && \
-    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 05 - Droplet Growth by Condensation/Module 5 - Droplet Growth by Condensation.ipynb"  && \
-    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 06 - Droplet Growth by Collision and Coalescence/Module 6 - Droplet Growth by Collision and Coalescence.ipynb" && \
-    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 07 - Influence of Aerosol on Precipitation/Module 7 - Influence of Aerosol on Precipitation.ipynb" && \
-    jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 08 - Raindrop Size Distributions/Module 8 - Raindrop Size Distributions.ipynb" 
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 01 - Aerosol Dynamics/Module 1 - Aerosol Dynamics.ipynb" --stdout >/dev/null && \
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 02 - Cloud Condensation Nuclei/Module 2 - Cloud Condensation Nuclei.ipynb" --stdout >/dev/null && \
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 03 - Early Stages of Cloud Formation/Module 3 - Early Stages of Cloud Formation.ipynb" --stdout >/dev/null && \
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 04 - Cloud Droplet Size Distributions/Module 4 - Cloud Droplet Size Distributions.ipynb" --stdout >/dev/null && \    
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 05 - Droplet Growth by Condensation/Module 5 - Droplet Growth by Condensation.ipynb" --stdout >/dev/null  && \
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 06 - Droplet Growth by Collision and Coalescence/Module 6 - Droplet Growth by Collision and Coalescence.ipynb" --stdout >/dev/null && \
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 07 - Influence of Aerosol on Precipitation/Module 7 - Influence of Aerosol on Precipitation.ipynb" --stdout >/dev/null && \
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 08 - Raindrop Size Distributions/Module 8 - Raindrop Size Distributions.ipynb" --stdout >/dev/null
 
 RUN julia -e 'using Fezzik; Fezzik.brute_build_julia();'
 
@@ -99,4 +101,3 @@ RUN julia -e 'using Fezzik; Fezzik.brute_build_julia();'
 CMD jupyter notebook \
     --ip=* \
     --notebook-dir=$HOME/Atmospheric-Physics-Notebooks/notebooks/
-
