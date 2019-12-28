@@ -9,7 +9,6 @@ USER root
 # Install system packages dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    p7zip-full \
     ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
@@ -73,13 +72,16 @@ RUN mv $HOME/.local/share/jupyter/kernels/julia* $CONDA_DIR/share/jupyter/kernel
 # Install WebIO jupyter extension
 RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension();' 
 
+RUN cd =$HOME/Atmospheric-Physics-Notebooks/notebooks/Module 01\ -\ Aerosol Dynamics/
+RUN julia -e ../src/create_sysimg.jl
+
 # EXPERIMENTAL - use custom compiled julia system image
-USER root
+#USER root
 
-RUN 7z x $HOME/Atmospheric-Physics-Notebooks/deps/sysimg/sys.7z && \
-    mv $HOME/Atmospheric-Physics-Notebooks/deps/sysimg/sys.so /opt/julia-${JULIA-VERSION}/lib/julia/sys.so
+#RUN 7z x $HOME/Atmospheric-Physics-Notebooks/deps/sysimg/sys.7z && \
+#    mv $HOME/sys.so /opt/julia-1.3.0/lib/julia/sys.so
 
-USER $NB_UID
+#USER $NB_UID
 
 # Set landing page
 CMD jupyter notebook \

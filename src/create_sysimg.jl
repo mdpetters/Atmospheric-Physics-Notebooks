@@ -1,5 +1,7 @@
 using Fezzik
 
+Fezzik.trace()
+
 include("../notebooks/Module 01 - Aerosol Dynamics/scripts/Aerosol Dynamics Table 1.jl")
 include("../notebooks/Module 01 - Aerosol Dynamics/scripts/Aerosol Dynamics Figure 1.jl")
 include("../notebooks/Module 01 - Aerosol Dynamics/scripts/Aerosol Dynamics Figure 2.jl")
@@ -18,5 +20,6 @@ include("../notebooks/Module 01 - Aerosol Dynamics/scripts/Aerosol Dynamics Figu
 plt = aerosol_app3(10,0.0,7.0,1.2,0.0,7.0,1.2,0.0,7.0,1.2,0.0,7.0,1.2)
 draw(SVG("foo.svg", 6Gadfly.inch, 4Gadfly.inch), plt)
 rm("foo.svg")
+
 Fezzik.brute_build_julia()
 
