@@ -1,7 +1,0 @@
-*.jl.cov
-*.jl.*.cov
-*.jl.mem
-docs/PartMC/logn1/
-docs/PartMC/triangular1/
-.ipynb_checkpoints
-*/.ipynb_checkpoints/*
