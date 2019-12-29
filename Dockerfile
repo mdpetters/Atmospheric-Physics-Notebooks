@@ -95,7 +95,7 @@ RUN echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 06 - Droplet Growth by Collision and Coalescence/Module 6 - Droplet Growth by Collision and Coalescence.ipynb" --stdout >/dev/null && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 07 - Influence of Aerosol on Precipitation/Module 7 - Influence of Aerosol on Precipitation.ipynb" --stdout >/dev/null && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 08 - Raindrop Size Distributions/Module 8 - Raindrop Size Distributions.ipynb" --stdout >/dev/null
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 09 - Interactions of Radiation with Bulk Matter/Module 9 - Interactions of Radiation with Bulk Matter.ipynb" --stdout >/dev/null && \
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 10 - Interactions of Radiation with Droplets/Module 10 - Interactions of Radiation with Droplets.ipynb" --stdout >/dev/null
 
 RUN julia -e 'using Fezzik; Fezzik.brute_build_julia(;clear_traces = true);'
-
-CMD cd notebooks/
