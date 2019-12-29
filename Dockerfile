@@ -19,7 +19,7 @@ ENV JULIA_DEPOT_PATH=/opt/julia
 ENV JULIA_PKGDIR=/opt/julia
 ENV JULIA_VERSION=1.3.0
 ENV JULIA_SHA256=9ec9e8076f65bef9ba1fb3c58037743c5abb3b53d845b827e44a37e7bcacffe8
-ENV JULIA_PROJECT=$HOME/Atmospheric-Physics-Notebooks
+ENV JULIA_PROJECT=$HOME
 
 # Download and install julia version
 RUN mkdir /opt/julia-${JULIA_VERSION} && \
@@ -56,8 +56,10 @@ RUN conda install --yes \
 RUN pip install pyrcel
 
 # Download notebooks
-RUN echo
-RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git
+RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git && \
+    mv $HOME/Atmospheric-Physics-Notebooks/* . && \
+    rm -rf $HOME/work && \
+    rm -rf $HOME/Atmospheric-Physics-Notebooks
 
 # Activate julia environment and precompile
 RUN julia -e 'using Pkg; Pkg.instantiate()' && \
@@ -94,9 +96,4 @@ RUN echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 07 - Influence of Aerosol on Precipitation/Module 7 - Influence of Aerosol on Precipitation.ipynb" --stdout >/dev/null && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 08 - Raindrop Size Distributions/Module 8 - Raindrop Size Distributions.ipynb" --stdout >/dev/null
 
-RUN julia -e 'using Fezzik; Fezzik.brute_build_julia();'
-
-# Set landing page
-CMD jupyter notebook \
-    --ip=* \
-    --notebook-dir=$HOME/Atmospheric-Physics-Notebooks/notebooks/
+RUN julia -e 'using Fezzik; Fezzik.brute_build_julia(;clear_traces = true);'
