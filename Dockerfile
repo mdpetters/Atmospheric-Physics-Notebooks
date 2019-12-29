@@ -97,3 +97,5 @@ RUN echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "Atmospheric-Physics-Notebooks/notebooks/Module 08 - Raindrop Size Distributions/Module 8 - Raindrop Size Distributions.ipynb" --stdout >/dev/null
 
 RUN julia -e 'using Fezzik; Fezzik.brute_build_julia(;clear_traces = true);'
+
+CMD cd notebooks/
