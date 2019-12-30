@@ -31,7 +31,7 @@ Binder is free cloud-based service that hosts a docker image (see below) of the 
 A pre-built docker image is available from docker-hub. The docker container can be executed on local hardware using the docker engine. Docker is available free of charge for Windows, Mac OS, and Linux [Docker Download](https://docs.docker.com/install/). Once downloaded the notebooks can be executed using the command
 
 ```
-docker run -it -p 8888:8888 mdpetters/atmpspheric-physics-notebooks:current
+docker run -it -p 8888:8888 mdpetters/atmospheric-physics-notebooks:current
 ```
 
 |  Advantages |  Disadvantages |

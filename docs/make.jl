@@ -6,7 +6,7 @@ makedocs(
   pages = [
    "Introduction" => "index.md",
    "Content" => "content.md",
-   "Local Installation" => "installation.md",
+   "Installation" => "installation.md",
    "For Instructors" => "instructors.md",
    "License" => "license.md"
     ]

@@ -18,7 +18,7 @@ Modules are grouped by topic and **not** tailored to be completed within a singl
 ## Hosting
 The notebooks can be executed in the browser through binder. Binder serves a complete Jupyter/Julia environment in your browser. Click on the badge below to launch it.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/v0.1)
 
 The binder service is free and appropriate for a few users or workshops. The service may not be reliable for class-deployment.
 
