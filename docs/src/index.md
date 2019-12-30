@@ -5,4 +5,4 @@ This repository contains Jupyter notebooks used to supplement instruction in MEA
 
 The notebooks contain instructional material, interactive web-apps, and exercises for students to engage with the material using an inquiry-based approach.
 
-![alt text](figures/Example.png)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/v0.1)

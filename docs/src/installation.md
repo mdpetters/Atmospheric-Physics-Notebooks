@@ -16,7 +16,7 @@ The notebook is now ready. You can interact with the graphs using the widgets pr
 ## Binder
 Binder is free cloud-based service that hosts a docker image (see below) of the notebooks. Click the binder link to try it.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/v0.1)
 
 |  Advantages |  Disadvantages |
 |---|---|
@@ -48,7 +48,7 @@ docker run -it -p 8888:8888 mdpetters/atmpspheric-physics-notebooks:current
 The docker container can be built locally. The repository follows the [reproducible build specifications](https://repo2docker.readthedocs.io/en/latest/specification.html). It is generated using [repo2docker](https://repo2docker.readthedocs.io/en/latest/).
 
 ```
-repo2docker --user-name=jovyan --image-name=NAME:TAG https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git
+repo2docker --user-name=jovyan --no-run --image-name=NAME:TAG https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git
 ```
 
 |  Advantages |  Disadvantages |
