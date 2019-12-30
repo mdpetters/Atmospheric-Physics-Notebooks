@@ -1,4 +1,4 @@
-using Compose, Colors, Random, Distributions
+using Gadfly, Compose, Colors, Random, Distributions
 
 function condensation_illustration1()
     Random.seed!(412)
@@ -30,9 +30,9 @@ function condensation_illustration1()
                         stroke("black"), strokedash([2Compose.mm,2Compose.mm])),
             (context(), line([(0.5, 0.5), (0.54,0.44)]), stroke("black")),
             (context(), line([(0.5, 0.5), (0.665,0.665)]), stroke("black")),
-            (context(),circle([xx;], [yy;], [0.0025]), fill("steelblue3")),
+            (context(), Compose.circle([xx;], [yy;], [0.0025]), fill("steelblue3")),
         
         )
 end
 
-condensation_illustration1()    
+condensation_illustration1()

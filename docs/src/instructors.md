@@ -3,8 +3,6 @@ The materials are designed for undergraduate students who have completed an intr
 
 The modules are designed for students to construct knowledge by interacting with the web-apps. They can do so by working alone or collaborating in small teams. The modules are interconnected and somewhat build on each other. However, the modules can also be used independently as assignments for special topics in graduate classes, which include a more mathematical treatment of the subject.
 
-There is ~5 min spin-up time to initialize a module, which includes login to the server and first execution of all apps. Students start the appropriate module at the beginning of class. The time can be used to conduct standard class business, hold a short review, or start a mini lecture. Due to this time overhead lecture periods of 75 min are preferred.
-
 When used in a class setting, some of the individual apps are introduced with mini lectures. Students can work alone or in groups interacting with the individual apps in the module on prompt. This is followed by a whole-class discussion, soliciting responsed from each group, clearing up muddy points, and summarizing the main takeaway messages. Some of the exercises are specifically designed as homework, e.g. the programming exercises. Others can be assigned as either in-class or homework assignment, depdending on the class flow. 
 
 Modules are grouped by topic and **not** tailored to be completed within a single class period.
@@ -30,7 +28,7 @@ The docker image can be served to a large group using [jupyter-hub](https://zero
 
 * Hosting the service in the cloud makes the notebook available on tablets, mobile devices, and any computer that has browser access, thus broadening the opportunities to use the apps outside of class, and for students that need to use library computers.
 * Install on local machines can be tricky, especially for the notebooks that interface with atmospheric models written in other languages (e.g. python and fortran). 
-* The notebook widget state can potentially be corrupted during saving and restart,  which leads to a delay in spin-up and student frustration. The Kubernetes engine serves a non-persistent container image that is guaranteed to work.
+* The notebook widget state can potentially be corrupted during saving and restart, which leads to a delay in spin-up and student frustration. The Kubernetes engine serves a non-persistent container image that is guaranteed to work.
 * The Kubernetes engine can scale up and down with student demand.
 * The cloud services are almost 100% reliable.
  
@@ -50,6 +48,7 @@ The apps are programmed using the [Julia Progamming Language](https://julialang.
 * [PyCall.jl](https://github.com/JuliaPy/PyCall.jl) for calling Python-based parcel model
 * [IJulia.jl](https://github.com/JuliaLang/IJulia.jl) for Jupyter integration
 * [WebIO.jl](https://github.com/JuliaGizmos/WebIO.jl) for rendering Apps
+* [Fezzik.jl](https://github.com/TsurHerman/Fezzik) for creating a precompiled system image to speed up execution time
 
 The key packages key pacakages that create the content are Gadfly and Interact.  Note that Gadfly is based on the [Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448). It is built on top of [Compose.jl](https://giovineitalia.github.io/Compose.jl/stable/), declerative vector graphics written in pure Juia. 
 
