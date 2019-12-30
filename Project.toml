@@ -1,2 +1,5 @@
+name = "Atmospheric Physics"
+uuid = "13a5dcd1-aa46-5f5c-a4e8-ed6ffcbbca62"
+
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
