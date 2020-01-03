@@ -90,7 +90,7 @@ RUN echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 01 - Aerosol Dynamics/Module 1 - Aerosol Dynamics.ipynb" --stdout >/dev/null && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 02 - Cloud Condensation Nuclei/Module 2 - Cloud Condensation Nuclei.ipynb" --stdout >/dev/null && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 03 - Early Stages of Cloud Formation/Module 3 - Early Stages of Cloud Formation.ipynb" --stdout >/dev/null && \
-    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 04 - Cloud Droplet Size Distributions/Module 4 - Cloud Droplet Size Distributions.ipynb" --stdout >/dev/null && \    
+    jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 04 - Cloud Droplet Size Distributions/Module 4 - Cloud Droplet Size Distributions.ipynb" --stdout >/dev/null && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 05 - Droplet Growth by Condensation/Module 5 - Droplet Growth by Condensation.ipynb" --stdout >/dev/null  && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 06 - Droplet Growth by Collision and Coalescence/Module 6 - Droplet Growth by Collision and Coalescence.ipynb" --stdout >/dev/null && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 07 - Influence of Aerosol on Precipitation/Module 7 - Influence of Aerosol on Precipitation.ipynb" --stdout >/dev/null && \
