@@ -1,7 +1,0 @@
-name = "AtmosphericThermodynamics"
-uuid = "b4d6eff7-c201-489a-94cf-8f68d947ac67"
-authors = ["Markus Petters <mdpetter@ncsu.edu>"]
-version = "0.1.0"
-
-[deps]
-Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
