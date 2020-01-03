@@ -300,11 +300,11 @@ version = "6.6.0"
 
 [[DifferentialMobilityAnalyzers]]
 deps = ["Calculus", "DataFrames", "Distributions", "Glob", "IJulia", "Interpolations", "LambertW", "LinearAlgebra", "LsqFit", "NetCDF", "ORCA", "PlotlyJS", "Plots", "Printf", "ProgressMeter", "Random", "SpecialFunctions", "StatsBase", "Test"]
-git-tree-sha1 = "13d9911ba10427d8b2b90869dc18f1eb6d6c6bd8"
+git-tree-sha1 = "1b62a4f43a5e4b6975ef0c84e9ff3ee624deb6c2"
 repo-rev = "master"
 repo-url = "https://github.com/mdpetters/DifferentialMobilityAnalyzers.jl.git"
 uuid = "050a7be8-18f9-52d6-bdba-0a194485d082"
-version = "0.0.0"
+version = "2.0.0"
 
 [[DimensionalPlotRecipes]]
 deps = ["LinearAlgebra", "RecipesBase"]
