@@ -9,6 +9,11 @@ julia:
 notifications:
   email: false
 
+script:
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - julia -e 'Pkg.clone("https://github.com/TsurHerman/Fezzik.git"); Pkg.build(Fezzik");'
+  - julia -e 'Pkg.clone("https://github.com/mdpetters/AtmosphericThermodynamics.git"); Pkg.build("AtmosphericThermodynamics");'
+  - julia -e 'Pkg.clone("https://github.com/mdpetters/DifferentialMobilityAnalyzers.jl.git"); Pkg.build("DifferentialMobilityAnalyzers");'
 
 jobs:
   include:
