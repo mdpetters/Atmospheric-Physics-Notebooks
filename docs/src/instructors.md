@@ -16,13 +16,13 @@ Modules are grouped by topic and **not** tailored to be completed within a singl
 * [Glossary of Meteorology](http://glossary.ametsoc.org/wiki/Main_Page). Used for definitions of key concepts.
 
 ## Hosting
-The notebooks can be executed in the browser through binder. Binder serves a complete Jupyter/Julia environment in your browser. Click on the badge below to launch it.
+<!-- The notebooks can be executed in the browser through binder. Binder serves a complete Jupyter/Julia environment in your browser. Click on the badge below to launch it.
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/v0.1)
 
 The binder service is free and appropriate for a few users or workshops. The service may not be reliable for class-deployment.
 
-The repository follows the [reproducible build specifications](https://repo2docker.readthedocs.io/en/latest/specification.html). A docker image can be prepared using [repo2docker](https://repo2docker.readthedocs.io/en/latest/).
+The repository follows the [reproducible build specifications](https://repo2docker.readthedocs.io/en/latest/specification.html). A docker image can be prepared using [repo2docker](https://repo2docker.readthedocs.io/en/latest/). -->
 
 The docker image can be served to a large group using [jupyter-hub](https://zero-to-jupyterhub.readthedocs.io/en/latest/index.html) with Kubernetes. Running the Kubernetes engine for students to access the content 24/7 costs ~\$30/user and semester. Cloud hosting is needed because 
 

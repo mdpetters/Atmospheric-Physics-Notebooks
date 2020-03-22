@@ -14,7 +14,7 @@
 *Influence of Aerosol on Precipitation.* Influence of CCN and CDNC on precipitation initation. Autoconversion. Analyzing observations.
 ## Module 08
 *Raindrop Size Distributions.* Mathematical representation of the raindrop size distribution. Spectral density. Measurement of the raindrop size distribution. Dependence of the raindrop size distribution on rainfall rate. Integral rainfall parameters (number concentration, water content, rain rate, radar reflectivity factor. Computation of integral rainfall parameters from size distribution parameters. Z-R relationships.
-## Module 09
+<!-- ## Module 09
 *Interactions of Radiation with Bulk Matter.* Under construction
 ## Module 10
-*Interactions of Radiation with Droplets.* Under construction
+*Interactions of Radiation with Droplets.* Under construction -->

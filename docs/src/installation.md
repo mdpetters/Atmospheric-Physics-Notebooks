@@ -7,13 +7,13 @@ Start the notebook ```Module 1 - Aerosol Dynamics.ipynb``` and "Run All Below". 
 
 ![alt text](figures/Cells.png)
 
-Execution of the notebook takes between 20 and 40 seconds. Once a cell has been processed a number appears in parenthesis, e.g. ```In[1]```
+Once a cell has been processed a number appears in parenthesis, e.g. ```In[1]```
 
 ![alt text](figures/Example.png)
 
 The notebook is now ready. You can interact with the graphs using the widgets provided with each element. It is not necessary to execute the cells again. However, the notebook is a complete programming environment and can be used as such. Indivual cells can be executed using CTRL-ENTER.
 
-## Binder
+<!-- ## Binder
 Binder is free cloud-based service that hosts a docker image (see below) of the notebooks. Click the binder link to try it.
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/v0.1)
@@ -25,10 +25,10 @@ Binder is free cloud-based service that hosts a docker image (see below) of the 
 | Can be used on any device with a browser | Container is destroyed after ~10 min of inactivity |
 | Precompiled for fast execution | Requires (fast) internet connection |
 | Rquires no julia knowledge | Changes are lost after the session |
-|  | Environment may change without notice |
+|  | Environment may change without notice | -->
 
 ## Pre-built Docker
-A pre-built docker image is available from docker-hub. The docker container can be executed on local hardware using the docker engine. Docker is available free of charge for Windows, Mac OS, and Linux [Docker Download](https://docs.docker.com/install/). Once downloaded the notebooks can be executed using the command
+A pre-built docker image is available from DockerHub. The docker container can be executed on local hardware using the docker engine. Docker is available free of charge for Windows, Mac OS, and Linux [Docker Download](https://docs.docker.com/install/). Once downloaded the notebooks can be executed using the command
 
 ```
 docker run -it -p 8888:8888 mdpetters/atmospheric-physics-notebooks:current
@@ -95,7 +95,7 @@ Once installed start the julia REPL (Read-Eval-Print-Loop)
   (_)     | (_) (_)    |
    _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
   | | | | | | |/ _` |  |
-  | | |_| | | | (_| |  |  Version 1.3.0 (2019-11-26)
+  | | |_| | | | (_| |  |  Version 1.4.0 (2020-03-21)
  _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
 |__/                   |
 
