@@ -6,13 +6,17 @@ RxA11 = convert(Array{Float64}, dfA11[2:end,1])
 rxA11 = convert(Array{Float64}, Vector(dfA11[1,2:end]))
 Ec11 = Matrix(dfA11[2:end,2:end])
 EcCA11 = LinearInterpolation((RxA11,rxA11), Ec11)  # Ec(R,r)
+function myEC(R,r)
+    E = try
+        EcCA11(R,r)
+    catch 
+        1.0
+    end
+end
 
 ODEs = @ode_def_bare begin
-    vR = vtp(2.0*R)
-    E = EcCA11(R*1e6,r*1e6)
-    f = c1*E*vR
-    dz = (z >= -300.0) ? w - vR  : 0.0
-    dR = ((z >= -300.0) & (f < 2.0*R)) ? f + c2/R : 0.0
+    dz = ifelse(z >= -300.0, w - vtp(2.0*R), 0.0)
+    dR = ifelse((z >= -300.0) & (c1* myEC(R*1e6,r*1e6)*vtp(2.0*R) < 2.0*R), c1*myEC(R*1e6,r*1e6)*vtp(2.0*R) + c2/R, 0.0)
 end w c1 c2 r 
 
 function bowen_model(r,LWC,w)

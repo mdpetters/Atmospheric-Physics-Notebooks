@@ -41,7 +41,7 @@ end
 
 Nt = togglebuttons([50, 200, 700, 1000], value = 200, label = "Nt (cm-3)")
 s = togglebuttons(collect([0.1, 0.5, 1]), value = 0.5, label = "s(%)")
-t = slider(0:1.0:120, value = 2.0, label = "time (s)")
+t = slider(0:1.0:120, value = 2.0, label = "time (min)")
 b1 = hbox(Interact.pad(0.5em, Nt), Interact.pad(0.5em, s))
 display(hbox(b1, Interact.pad(0.5em,t)))
 display(map((i,j,k)->condensation_app1(i,j,k), observe(Nt), observe(s), observe(t)))
