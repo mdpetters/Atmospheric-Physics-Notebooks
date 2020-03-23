@@ -13,20 +13,6 @@ Once a cell has been processed a number appears in parenthesis, e.g. ```In[1]```
 
 The notebook is now ready. You can interact with the graphs using the widgets provided with each element. It is not necessary to execute the cells again. However, the notebook is a complete programming environment and can be used as such. Indivual cells can be executed using CTRL-ENTER.
 
-<!-- ## Binder
-Binder is free cloud-based service that hosts a docker image (see below) of the notebooks. Click the binder link to try it.
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdpetters/Atmospheric-Physics-Notebooks.git/v0.1)
-
-|  Advantages |  Disadvantages |
-|---|---|
-| Requires no installation | Service may not be 100% reliable |
-| Service is free | Service is not scalable for large classes |
-| Can be used on any device with a browser | Container is destroyed after ~10 min of inactivity |
-| Precompiled for fast execution | Requires (fast) internet connection |
-| Rquires no julia knowledge | Changes are lost after the session |
-|  | Environment may change without notice | -->
-
 ## Pre-built Docker
 A pre-built docker image is available from DockerHub. The docker container can be executed on local hardware using the docker engine. Docker is available free of charge for Windows, Mac OS, and Linux [Docker Download](https://docs.docker.com/install/). Once downloaded the notebooks can be executed using the command
 
