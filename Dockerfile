@@ -58,7 +58,6 @@ RUN pip install pyrcel
 # Download notebooks
 RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git && \
     mv $HOME/Atmospheric-Physics-Notebooks/* . && \
-    mv $HOME/Atmospheric-Physics-Notebooks/*.* . && \
     rm -rf $HOME/work && \
     rm -rf $HOME/Atmospheric-Physics-Notebooks
 
@@ -86,6 +85,7 @@ RUN cp $JULIA_PKGDIR/packages/GR/yMV3y/deps/gr/lib/*.so ${JULIA_DEPOT_PATH}-${JU
     chmod a+w ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/etc/julia/startup.jl 
 
 USER $NB_UID
+
 
 RUN echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/etc/julia/startup.jl && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 01 - Aerosol Dynamics/Module 1 - Aerosol Dynamics.ipynb" --stdout >/dev/null && \
