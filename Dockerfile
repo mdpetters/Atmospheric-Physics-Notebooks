@@ -57,7 +57,8 @@ RUN pip install pyrcel
 
 # Download notebooks
 RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git && \
-    mv $HOME/Atmospheric-Physics-Notebooks/* . && \
+    cp -r $HOME/Atmospheric-Physics-Notebooks/*.* . && \
+    cp -r $HOME/Atmospheric-Physics-Notebooks/* . && \
     rm -rf $HOME/work && \
     rm -rf $HOME/Atmospheric-Physics-Notebooks
 
