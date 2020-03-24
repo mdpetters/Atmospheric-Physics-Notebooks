@@ -64,8 +64,7 @@ RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git && 
 # Activate julia environment and precompile
 RUN julia -e 'using Pkg; Pkg.instantiate()' && \
     julia -e 'using Pkg; Pkg.status()' && \
-    julia -e 'println(Base.active_project())' && \
-    julia -e 'using Pkg; Pkg.precompile()' 
+    julia -e 'println(Base.active_project())' 
 
 RUN mv $HOME/.local/share/jupyter/kernels/julia* $CONDA_DIR/share/jupyter/kernels/ && \
     chmod -R go+rx $CONDA_DIR/share/jupyter && \
@@ -81,6 +80,7 @@ RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension();'
 USER root
 
 RUN cp $JULIA_PKGDIR/packages/GR/yMV3y/deps/gr/lib/*.so ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/ && \
+    cp bootstrap.jl/ $JULIA_PKGDIR/packages/Fezzik/SfTjP/src/ && \
     chmod a+w ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/ && \
     chmod a+w ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/etc/julia/startup.jl 
 
