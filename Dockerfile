@@ -65,6 +65,7 @@ RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git && 
 # Activate julia environment and precompile
 RUN julia -e 'using Pkg; Pkg.instantiate()' && \
     julia -e 'using Pkg; Pkg.status()' && \
+    julia -e 'using Pkg; Pkg.precompile()' && \
     julia -e 'println(Base.active_project())' 
 
 RUN mv $HOME/.local/share/jupyter/kernels/julia* $CONDA_DIR/share/jupyter/kernels/ && \
