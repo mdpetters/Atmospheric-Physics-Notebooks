@@ -47,7 +47,7 @@ Nmax,ii = findmax(N)
 Dp = aer_out["sulfate"].values.*2.0
 
 
-@manipulate for heigh_above_LCL = 0:10:1000
+@manipulate for height_above_LCL = 0:10:1000
     Gadfly.set_default_plot_size(29Gadfly.cm, 18Gadfly.cm)
     layers = []
     push!(layers, layer(x =-2.0 .+ alpha1.*zarr, y = zarr .- zLCL, Geom.line, Theme(line_style=[:dash]),
@@ -120,7 +120,7 @@ Dp = aer_out["sulfate"].values.*2.0
 
     xticks = log10.(collect([0.01:0.01:0.09;0.1:0.1:0.9;1:1:9;10:10:40]))
     xlabel = log10.([0.01, 0.1,1,10])
-    jj = heigh_above_LCL+43
+    jj = height_above_LCL+43
     z[jj]
     str = @sprintf("DSD at %03i m above LCL", z[jj].-zLCL)
     l1 = ["Below cloud aerosol distribution" for i=1:length(N)]
