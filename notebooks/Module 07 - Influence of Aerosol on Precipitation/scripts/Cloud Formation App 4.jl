@@ -70,15 +70,17 @@ function cloud_app4(T0, Tdew0, C, k, w0)
     wlx = wl(z,zLCL)
     LWC = @. wlx.*rhoa./1e6./rhow  # m3 water cm-3 air
     LWC1 = @. wlx.*rhoa # g water cm-3 air
+    LWC2 = @. wlx./rhow  # m3 water kg-1 air
+    Nd2 = @. Nd0.*1e6/rhoa[1] # CDNC kg-1 air
     Dm = @. (LWC*6/(π*Nd0))^(1/3.0)*1e6
+    Dm = @. (LWC2*6/(π*Nd2))^(1/3.0)*1e6
+
     y = z[Dm .>= 24]
-    wl0 = wl(z,zLCL).*rhoa
-
-
+    wl0 = wl(z,zLCL)
 
     layers = []
     
-    push!(layers, layer(x = LWC1*1000, y=z./1000, color = ["LWC" for i = 1:length(z)], Geom.line(preserve_order=true)))
+    push!(layers, layer(x = wlx*1000, y=z./1000, color = ["LWC" for i = 1:length(z)], Geom.line(preserve_order=true)))
     push!(layers, layer(x = [-2.0,20], y=[zLCL, zLCL]./1000, color = ["LCL = $zLCL0 m" for i = 1:2], Geom.line(preserve_order=true)))
 
     if maximum(Dm) >= 24.0
@@ -86,16 +88,16 @@ function cloud_app4(T0, Tdew0, C, k, w0)
         wl01 = (round(wl1[1]*1000,digits = 2))
         push!(layers, layer(x = [wl01,wl01], y = [-1000.0,y[1]]./1000, Geom.line(preserve_order=true), Geom.point,
         Theme(alphas=[0.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
-        color = ["LWC = $wl01 g/m3" for i = 1:2]))
+        color = ["LWC = $wl01 g/kg" for i = 1:2]))
     
-        delz = @sprintf("Δz = %i m", y[end]-zLCL)
+        delz = @sprintf("Δz = %i m", y[1]-zLCL)
         push!(layers, layer(x = [-100,wl01], y = [y[1],y[1]]./1000, Geom.line, Geom.point,
         Theme(alphas=[1.0],discrete_highlight_color=c->RGBA{Float32}(c.r,c.g,c.b,1), highlight_width=1Gadfly.pt),
         color = [delz for i = 1:2]))
     end
 
     guides = []
-    push!(guides, Guide.xlabel("LWC (g/m<sup>3</sup>)"))
+    push!(guides, Guide.xlabel("LWC (g/kg)"))
     push!(guides, Guide.ylabel("Height (km)"))
     push!(guides, Guide.title("Liquid water profile"))
     push!(guides, Guide.yticks(ticks=0:1:8))
@@ -191,7 +193,7 @@ end
 
 Td = HTML(string("<div style='color:#", hex(RGB(0.8,0,0)), "'>Dew-point temperature</div>"))
 T0 = widget(["0", "5", "10", "15", "20"]; value = "5", label = "Temperature")
-Tdew0 = widget(["-10", "-5", "0", "5", "10", "15"]; value = "0", label = Td)
+Tdew0 = widget(["-5", "0", "5", "10", "15"]; value = "0", label = Td)
 C = slider(50:50:2000; value = 500, label = "C")
 k = slider(0.1:0.1:1; value = 0.5, label = "k")
 w = slider(1:1.0:10; value = 5, label = "w")

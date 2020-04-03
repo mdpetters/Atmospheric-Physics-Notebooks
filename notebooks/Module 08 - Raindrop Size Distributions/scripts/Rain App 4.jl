@@ -84,7 +84,7 @@ function rain_app4()
 	df[!,:Z] = Zx
 	df[!,:dBZ] = dBZx
 
-	df[i:j,5:end] .= nothing
+	#df[i:j,5:end] .= nothing
 	display(df)
 end
 

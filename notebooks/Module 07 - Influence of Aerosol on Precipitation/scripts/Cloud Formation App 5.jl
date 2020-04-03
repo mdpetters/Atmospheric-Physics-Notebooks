@@ -20,11 +20,11 @@ df4[!,:Sample] = ["1" for i = 1:length(df3[!,:D])]
 
 df = [df1;df2;df3;df4]
 
-function cloud_app5(i,j,k,l,m)
+function cloud_app5(i,k,l,m)
     Gadfly.set_default_plot_size(13Gadfly.cm, 11Gadfly.cm)
 
     TLCL = parse(Float64,i)
-    zLCL = parse(Float64,j)*1000.0
+    zLCL = 1000.0
     C = k
     k = l
     w0 = m
@@ -41,6 +41,10 @@ function cloud_app5(i,j,k,l,m)
     rhoa = @. p/(Rd*Tk)
     LWC = @. wl.*rhoa./1e6./rhow  # m3 water cm-3 air
     Dm = @. (LWC*6.0/(π*Nd0))^(1/3.0)*1e6  # in micron
+    LWC2 = @. wl./rhow  # m3 water kg-1 air
+    Nd2 = @. Nd0.*1e6/rhoa[1] # CDNC kg-1 air
+    Dm = @. (LWC2*6/(π*Nd2))^(1/3.0)*1e6
+
 
     layers = []
     push!(layers, layer(x = df[!,:D], y=df[!,:z]./1000, color = df[!,:Regime], Geom.line, Geom.point))
@@ -64,13 +68,13 @@ function cloud_app5(i,j,k,l,m)
 end
 
 T0 = widget(["-15", "-10","-5","0", "5", "10", "15"]; value = "5", label = "Temperature @ LCL (°C)")
-zLCL = widget(["1", "2","3","4", "5"]; value = "1", label = "Height @ LCL (km)")
-C = slider(50:50:4000; value = 1000, label = "C")
+#zLCL = widget(["1", "2","3","4", "5"]; value = "1", label = "Height @ LCL (km)")
+C = slider(50:50:6000; value = 1000, label = "C")
 k = slider(0.1:0.1:1; value = 0.7, label = "k")
 w = slider(1:1.0:10; value = 2, label = "w")
-p1 = map((i,j,k,l,m)->cloud_app5(i,j,k,l,m), observe(T0), observe(zLCL), observe(C), observe(k), observe(w))
+p1 = map((i,k,l,m)->cloud_app5(i,k,l,m), observe(T0), observe(C), observe(k), observe(w))
 display(p1)
-x1 = hbox(pad(0.5em, zLCL), pad(0.5em, T0))
+x1 = hbox(pad(0.5em, T0))
 display(hbox(vbox(x1)))
 display(C)
 display(k)
