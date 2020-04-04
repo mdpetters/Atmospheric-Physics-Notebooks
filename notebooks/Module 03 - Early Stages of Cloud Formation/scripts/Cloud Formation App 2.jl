@@ -20,7 +20,8 @@ function pmodel(N,V)
       z,T,wc,S
 end
 
-x = exp10.(range(log10(0.1), stop=log10(10), length = 100))
+#x = exp10.(range(log10(0.1), stop=log10(10), length = 100))
+x = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,2,3,4,5,6,7,8,9,10]
 @manipulate throttle = 0.1 for w = x, Nccn = 500:100:5000
       Gadfly.set_default_plot_size(22Gadfly.cm, 12Gadfly.cm)
 
@@ -46,10 +47,10 @@ x = exp10.(range(log10(0.1), stop=log10(10), length = 100))
 
       layers = []
       push!(layers, layer(x =-2.0 .+ alpha1.*zarr, y = zarr .- zLCL, Geom.line, Theme(line_style=[:dash]),
-                  color = ["S = α₁*z" for i = 1:length(zarr)]))
+                  color = ["s = α₁*z" for i = 1:length(zarr)]))
 
       push!(layers, layer(x = S, y = z .- zLCL, Geom.line(preserve_order=true), 
-            color = ["S(z)" for i = 1:length(S)]))
+            color = ["s(z)" for i = 1:length(S)]))
 
       push!(layers, layer(x = [-1,2], y = [0,0], Geom.line, 
             color = ["LCL" for i = 1:2]))
