@@ -9,7 +9,7 @@ function rain_app2(N₀,μ,Λ)
 	label = ["N<sub>0</sub>D<sup>μ</sup>exp(-ΛD)" for i = 1:length(D)]
     plot(layer(x = D, y = N.(D), Gadfly.style(default_color=colorant"black"), Geom.line),
 	     Guide.xlabel("Diameter (mm)"),
-		 Guide.ylabel("N(D) (mm<sup>-3</sup> mm<sup>-1</sup>)"),
+		 Guide.ylabel("N(D) (m<sup>-3</sup> mm<sup>-1</sup>)"),
 		 Guide.title(tstr),
 	     Scale.y_log10(),
      	 Coord.cartesian(xmin = 0, xmax = 10, ymin = -4, ymax = 4))
