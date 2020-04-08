@@ -40,7 +40,7 @@ function rain_app3(RR, μ)
 		Gadfly.style(point_size = 1.5Gadfly.pt)),
 		layer(x = D, y = ND, color = label, Geom.line),
 		Guide.xlabel("Diameter (mm)"),
-		Guide.ylabel("N(D) (mm<sup>-3</sup> mm<sup>-1</sup>)"),
+		Guide.ylabel("N(D) (m<sup>-3</sup> mm<sup>-1</sup>)"),
 		Guide.title(tstr), 
 	 	Scale.color_discrete_manual("darkgreen", "darkgoldenrod3",  "darkred", "black"),
 		Scale.y_log10(),
