@@ -177,7 +177,7 @@ function cloud_app4(T0, Tdew0, C, k, w0)
     guides = []
     push!(guides, Guide.xlabel("Droplet diameter (µm)"))
     push!(guides, Guide.ylabel("Height (km)"))
-    push!(guides, Guide.title("Droplet radius profile"))
+    push!(guides, Guide.title("Mean droplet diameter profile"))
     push!(guides, Guide.yticks(ticks=0:1:8))
 
 
