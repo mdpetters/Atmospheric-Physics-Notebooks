@@ -120,9 +120,9 @@ version = "0.1.0"
 
 [[CSV]]
 deps = ["CategoricalArrays", "DataFrames", "Dates", "FilePathsBase", "Mmap", "Parsers", "PooledArrays", "Tables", "Unicode", "WeakRefStrings"]
-git-tree-sha1 = "c0f38b559c40d954ca7170ab91248eb59c41932d"
+git-tree-sha1 = "8fe77a5478781d59a9ba17f0ac47dda2be5f8ae7"
 uuid = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
-version = "0.6.0"
+version = "0.6.1"
 
 [[Calculus]]
 deps = ["LinearAlgebra"]
@@ -324,9 +324,9 @@ uuid = "c619ae07-58cd-5f6d-b883-8f17bd6a98f9"
 version = "1.2.0"
 
 [[DiskArrays]]
-git-tree-sha1 = "b7d7a161b31c2b7cc9790dd80300c2c81f013f4b"
+git-tree-sha1 = "d89f6d225ea9e107ab1903e8b7881f1b1bd06148"
 uuid = "3c3547ce-8d99-4f5e-a174-61eb10b00ae3"
-version = "0.2.2"
+version = "0.2.3"
 
 [[Distances]]
 deps = ["LinearAlgebra", "Statistics"]
@@ -706,9 +706,9 @@ version = "0.10.0"
 
 [[METIS_jll]]
 deps = ["Libdl", "Pkg"]
-git-tree-sha1 = "2cff4099e6ade7b62b5c32d0c29393d3d4848980"
+git-tree-sha1 = "58ddd4e4cdd24ead2949d2bd4114208d70c49da5"
 uuid = "d00139f3-1899-568f-a2f0-47f597d42d70"
-version = "5.1.0+2"
+version = "5.1.0+3"
 
 [[MKL_jll]]
 deps = ["IntelOpenMP_jll", "Libdl", "Pkg"]
@@ -1048,10 +1048,10 @@ uuid = "3cdcf5f2-1ef4-517c-9805-6587b60abb01"
 version = "0.8.0"
 
 [[RecursiveArrayTools]]
-deps = ["ArrayInterface", "RecipesBase", "Requires", "StaticArrays", "Statistics", "ZygoteRules"]
-git-tree-sha1 = "01af091d2e62b907f6bb65ea2e7c12208131cf17"
+deps = ["ArrayInterface", "LinearAlgebra", "RecipesBase", "Requires", "StaticArrays", "Statistics", "ZygoteRules"]
+git-tree-sha1 = "48a8ce7a8cb156231de0477372dcaa6ada1472ef"
 uuid = "731186ca-8d62-57ce-b412-fbd966d074cd"
-version = "2.2.0"
+version = "2.3.1"
 
 [[RecursiveFactorization]]
 deps = ["LinearAlgebra"]
