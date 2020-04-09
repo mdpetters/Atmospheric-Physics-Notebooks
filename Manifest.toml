@@ -38,9 +38,9 @@ version = "3.7.0+0"
 
 [[ArrayInterface]]
 deps = ["LinearAlgebra", "Requires", "SparseArrays"]
-git-tree-sha1 = "94d8001d8609eeb241729bb4eda552059be30297"
+git-tree-sha1 = "b34d74dc877e6083c4c5c553a685e89e10ea4662"
 uuid = "4fba245c-0d91-5ea0-9b3e-6abc04ee57a9"
-version = "2.7.0"
+version = "2.8.3"
 
 [[ArrayLayouts]]
 deps = ["FillArrays", "LinearAlgebra"]
@@ -256,10 +256,10 @@ deps = ["Mmap"]
 uuid = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 
 [[DiffEqBase]]
-deps = ["ArrayInterface", "ChainRulesCore", "ConsoleProgressMonitor", "DataStructures", "Distributed", "DocStringExtensions", "FunctionWrappers", "IterativeSolvers", "IteratorInterfaceExtensions", "LinearAlgebra", "Logging", "LoggingExtras", "MuladdMacro", "Parameters", "Printf", "ProgressLogging", "RecipesBase", "RecursiveArrayTools", "RecursiveFactorization", "Requires", "Roots", "SparseArrays", "StaticArrays", "Statistics", "SuiteSparse", "TableTraits", "TerminalLoggers", "TreeViews", "ZygoteRules"]
-git-tree-sha1 = "420c6f8c67632e8f52fdfc9c56e2b80ef2ed9f0b"
+deps = ["ArrayInterface", "ChainRulesCore", "ConsoleProgressMonitor", "DataStructures", "Distributed", "DocStringExtensions", "FunctionWrappers", "IterativeSolvers", "IteratorInterfaceExtensions", "LabelledArrays", "LinearAlgebra", "Logging", "LoggingExtras", "MuladdMacro", "Parameters", "Printf", "ProgressLogging", "RecipesBase", "RecursiveArrayTools", "RecursiveFactorization", "Requires", "Roots", "SparseArrays", "StaticArrays", "Statistics", "SuiteSparse", "TableTraits", "TerminalLoggers", "TreeViews", "ZygoteRules"]
+git-tree-sha1 = "ee7c0e244457d3c3e83c1ebf303a50f6f6df607c"
 uuid = "2b5f629d-d688-5b77-993f-72d75c75574e"
-version = "6.26.0"
+version = "6.27.0"
 
 [[DiffEqCallbacks]]
 deps = ["DataStructures", "DiffEqBase", "ForwardDiff", "LinearAlgebra", "NLsolve", "OrdinaryDiffEq", "RecipesBase", "RecursiveArrayTools", "StaticArrays"]
@@ -632,6 +632,12 @@ git-tree-sha1 = "de44b395389b84fd681394d4e8d39ef14e3a2ea8"
 uuid = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 version = "1.1.0"
 
+[[LabelledArrays]]
+deps = ["LinearAlgebra", "MacroTools", "StaticArrays"]
+git-tree-sha1 = "559e1bd9a0b072ce3a946e5c3ae08789235c5c4b"
+uuid = "2ee39098-c373-598a-b85f-a56591580800"
+version = "1.1.0"
+
 [[LambertW]]
 git-tree-sha1 = "2d9f4009c486ef676646bca06419ac02061c088e"
 uuid = "984bce1d-4616-540c-a9ee-88d1112d94c9"
@@ -775,10 +781,10 @@ uuid = "46d2c3a1-f734-5fdb-9937-b9b9aeba4221"
 version = "0.2.2"
 
 [[MultiScaleArrays]]
-deps = ["DiffEqBase", "RecursiveArrayTools", "Statistics", "StochasticDiffEq", "TreeViews"]
-git-tree-sha1 = "c69e4a0db8d482a825c7ac76a433759ade2a5af2"
+deps = ["DiffEqBase", "FiniteDiff", "ForwardDiff", "LinearAlgebra", "OrdinaryDiffEq", "Random", "RecursiveArrayTools", "SparseDiffTools", "Statistics", "StochasticDiffEq", "TreeViews"]
+git-tree-sha1 = "8da5807683ed304bbfd1ce8c5e1c24926b0b76f8"
 uuid = "f9640e96-87f6-5992-9c3b-0743c6a49ffa"
-version = "1.6.0"
+version = "1.7.1"
 
 [[Mustache]]
 deps = ["Printf", "Tables"]
@@ -906,9 +912,9 @@ version = "0.9.12"
 
 [[PackageCompiler]]
 deps = ["Libdl", "Pkg", "UUIDs"]
-git-tree-sha1 = "96e2954e975a9ed4394b4db4af395935b6c2558a"
+git-tree-sha1 = "8989a56e4506b7b6a050f2b912e7856742d6998c"
 uuid = "9b87118b-4619-50d2-8e1e-99f35a4d4d9d"
-version = "1.1.0"
+version = "1.1.1"
 
 [[ParameterizedFunctions]]
 deps = ["DataStructures", "DiffEqBase", "LinearAlgebra", "ModelingToolkit"]
@@ -1144,9 +1150,9 @@ uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [[SparseDiffTools]]
 deps = ["Adapt", "ArrayInterface", "Compat", "DataStructures", "FiniteDiff", "ForwardDiff", "InteractiveUtils", "LightGraphs", "LinearAlgebra", "Requires", "SparseArrays", "VertexSafeGraphs"]
-git-tree-sha1 = "0ec9d7294a581faa2afa2d48c0eff185456d5e78"
+git-tree-sha1 = "132c55cf302f1faf1d0d1c8205453764066cb018"
 uuid = "47a9eef4-7e08-11e9-0b38-333d64bd3804"
-version = "1.5.0"
+version = "1.6.0"
 
 [[SpecialFunctions]]
 deps = ["OpenSpecFun_jll"]
@@ -1200,9 +1206,9 @@ version = "5.4.0+8"
 
 [[Sundials]]
 deps = ["CEnum", "DataStructures", "DiffEqBase", "Libdl", "LinearAlgebra", "Logging", "Reexport", "SparseArrays", "Sundials_jll"]
-git-tree-sha1 = "4f51f54cae8609fff66dce746a7ab1c46d151f5d"
+git-tree-sha1 = "d1e586631fd7768e3ee3d540c19049417a5ae2d7"
 uuid = "c3572dad-4567-51f8-b174-8c6c989267f4"
-version = "4.0.0"
+version = "4.1.0"
 
 [[Sundials_jll]]
 deps = ["Libdl", "OpenBLAS_jll", "Pkg", "SuiteSparse_jll"]
@@ -1305,9 +1311,9 @@ version = "1.2.0"
 
 [[ZeroMQ_jll]]
 deps = ["Libdl", "Pkg"]
-git-tree-sha1 = "d24fc0004686b534cc7518412b626deeea0b0208"
+git-tree-sha1 = "42b0955a7ad0935d454d750fedd812d3f2836fde"
 uuid = "8f1865be-045e-5c20-9c9f-bfbfb0764568"
-version = "4.3.2+1"
+version = "4.3.2+2"
 
 [[Zlib_jll]]
 deps = ["Libdl", "Pkg"]
