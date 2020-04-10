@@ -17,15 +17,15 @@ RUN apt-get update && \
 # Environment Variables
 ENV JULIA_DEPOT_PATH=/opt/julia
 ENV JULIA_PKGDIR=/opt/julia
-ENV JULIA_VERSION=1.4.0
-ENV JULIA_SHA256=30d126dc3598f3cd0942de21cc38493658037ccc40eb0882b3b4c418770ca751
+ENV JULIA_VERSION=1.3.1
+#ENV JULIA_SHA256=30d126dc3598f3cd0942de21cc38493658037ccc40eb0882b3b4c418770ca751
 ENV JULIA_PROJECT=$HOME
 
 # Download and install julia version
 RUN mkdir /opt/julia-${JULIA_VERSION} && \
     cd /tmp && \
     wget -q https://julialang-s3.julialang.org/bin/linux/x64/`echo ${JULIA_VERSION} | cut -d. -f 1,2`/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
-    echo "${JULIA_SHA256} *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
+    #echo "${JULIA_SHA256} *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
     tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C /opt/julia-${JULIA_VERSION} --strip-components=1 && \
     rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
