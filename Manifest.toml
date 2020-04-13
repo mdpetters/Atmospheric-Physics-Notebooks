@@ -917,10 +917,9 @@ version = "0.9.12"
 
 [[PackageCompiler]]
 deps = ["Libdl", "Pkg", "UUIDs"]
-git-tree-sha1 = "6a6d616b56dbfc3106c4ccbd18f1982910d52d43"
-pinned = true
+git-tree-sha1 = "8989a56e4506b7b6a050f2b912e7856742d6998c"
 uuid = "9b87118b-4619-50d2-8e1e-99f35a4d4d9d"
-version = "1.0.2"
+version = "1.1.1"
 
 [[ParameterizedFunctions]]
 deps = ["DataStructures", "DiffEqBase", "Latexify", "LinearAlgebra", "ModelingToolkit"]
@@ -1025,10 +1024,9 @@ version = "1.2.0"
 
 [[PyCall]]
 deps = ["Conda", "Dates", "Libdl", "LinearAlgebra", "MacroTools", "Serialization", "VersionParsing"]
-git-tree-sha1 = "ce0780857d129208c4e5a6d722486fb40ce11bf8"
-pinned = true
+git-tree-sha1 = "3a3fdb9000d35958c9ba2323ca7c4958901f115d"
 uuid = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
-version = "1.91.3"
+version = "1.91.4"
 
 [[QuadGK]]
 deps = ["DataStructures", "LinearAlgebra"]
