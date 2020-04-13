@@ -53,11 +53,11 @@ RUN conda install --yes \
 
 RUN pip install pyrcel
 
-ADD . .
-
  # Download notebooks
-RUN rm -rf $HOME/work && \
-    rm -rf $HOME/Atmospheric-Physics-Notebooks
+RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git && \
+        cp -r $HOME/Atmospheric-Physics-Notebooks/*.* . && \
+        cp -r $HOME/Atmospheric-Physics-Notebooks/* . && \rm -rf $HOME/work && \
+        rm -rf $HOME/Atmospheric-Physics-Notebooks
 
 # Activate julia environment and precompile
 RUN julia -e 'using Pkg; Pkg.instantiate()' && \
@@ -78,18 +78,16 @@ RUN julia -e 'using WebIO; WebIO.install_jupyter_nbextension();'
 # Copy libraries for Fezzik precompile to succeed
 USER root
 
-RUN ls
-RUN pwd
 RUN cp $JULIA_PKGDIR/packages/GR/yMV3y/deps/gr/lib/*.so ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/ && \
-    cp $HOME/bootstrap.jl $JULIA_PKGDIR/packages/Fezzik/SfTjP/src/ && \
-    chmod a+w ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/ && \
-    chmod a+w ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/etc/julia/startup.jl 
+        cp $HOME/bootstrap.jl $JULIA_PKGDIR/packages/Fezzik/SfTjP/src/ && \
+        chmod a+w ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/lib/julia/ && \
+        chmod a+w ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/etc/julia/startup.jl 
+
+USER $NB_UID
 
 # Blacklist Collision App 11 from sysimage (causes crash)
 RUN mv "notebooks/Module 06 - Droplet Growth by Collision and Coalescence/scripts/Collision App 11.jl" . && \
     echo "" > "notebooks/Module 06 - Droplet Growth by Collision and Coalescence/scripts/Collision App 11.jl"
-
-USER $NB_UID
 
 RUN echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}/etc/julia/startup.jl && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 01 - Aerosol Dynamics/Module 1 - Aerosol Dynamics.ipynb" --stdout >/dev/null && \
@@ -101,10 +99,7 @@ RUN echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 07 - Influence of Aerosol on Precipitation/Module 7 - Influence of Aerosol on Precipitation.ipynb" --stdout >/dev/null && \
     jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 "notebooks/Module 08 - Raindrop Size Distributions/Module 8 - Raindrop Size Distributions.ipynb" --stdout >/dev/null 
     
-RUN julia -e 'using Fezzik; Fezzik.brute_build_julia(;clear_traces = true);' 
+RUN julia -e 'using Fezzik; Fezzik.brute_build_julia(;clear_traces = true);'  && \
+        mv "Collision App 11.jl" "notebooks/Module 06 - Droplet Growth by Collision and Coalescence/scripts/"
 
-USER root
 
-RUN  mv "Collision App 11.jl" "notebooks/Module 06 - Droplet Growth by Collision and Coalescence/scripts/"
-
-USER $NB_UID    
