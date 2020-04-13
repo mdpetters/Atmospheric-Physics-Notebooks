@@ -103,7 +103,7 @@ RUN echo 'using Fezzik; Fezzik.trace();' >> ${JULIA_DEPOT_PATH}-${JULIA_VERSION}
     
 RUN julia -e 'using Fezzik; Fezzik.brute_build_julia(;clear_traces = true);' 
 
-USER ROOT
+USER root
 
 RUN  mv "Collision App 11.jl" "notebooks/Module 06 - Droplet Growth by Collision and Coalescence/scripts/"
 
