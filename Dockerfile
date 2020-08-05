@@ -62,6 +62,7 @@ RUN git clone https://github.com/mdpetters/Atmospheric-Physics-Notebooks.git && 
 # Activate julia environment and precompile
 RUN julia -e 'using Pkg; Pkg.instantiate()' && \
     julia -e 'using Pkg; Pkg.status()' && \
+    julia -e 'using IJulia; IJulia.installkernel("Julia nodeps", "--depwarn=no")' && \
     julia -e 'using Pkg; Pkg.precompile()' && \
     julia -e 'println(Base.active_project())' 
 
