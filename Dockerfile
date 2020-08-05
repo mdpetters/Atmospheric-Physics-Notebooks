@@ -17,7 +17,7 @@ RUN apt-get update && \
 # Environment Variables
 ENV JULIA_DEPOT_PATH=/opt/julia
 ENV JULIA_PKGDIR=/opt/julia
-ENV JULIA_VERSION=1.4.0
+ENV JULIA_VERSION=1.5.0
 ENV JULIA_PROJECT=$HOME
 
 # Download and install julia version
