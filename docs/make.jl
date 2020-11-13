@@ -11,7 +11,3 @@ makedocs(
    "License" => "license.md"
     ]
 )
-
-deploydocs(
-    repo = "github.com/mdpetters/Atmospheric-Physics-Notebooks.git"
-)
