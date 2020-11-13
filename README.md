@@ -5,7 +5,7 @@ atmospheric models in an inquiry-based course on Atmospheric Physics.*
 
 | **Documentation**                                                               | **Docker Image**                                                                                | **References** |
 |:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|
-| [![Link to Documentation](https://img.shields.io/badge/Documentation-v2008-blue)](https://mdpetters.github.io/Atmospheric-Physics-Notebooks/dev/) | [![Docker](https://img.shields.io/docker/v/mdpetters/atmospheric-physics-notebooks?label=Docker)](https://hub.docker.com/r/mdpetters/atmospheric-physics-notebooks/tags) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3977570.svg)](https://doi.org/10.5281/zenodo.3977570) |
+| [![Link to Documentation](https://img.shields.io/badge/Documentation-v2008-blue)](https://mdpetters.github.io/Atmospheric-Physics-Notebooks/v2008/) | [![Docker](https://img.shields.io/docker/v/mdpetters/atmospheric-physics-notebooks?label=Docker)](https://hub.docker.com/r/mdpetters/atmospheric-physics-notebooks/tags) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3977570.svg)](https://doi.org/10.5281/zenodo.3977570) |
 
 ## Installation
 
@@ -35,7 +35,7 @@ Use the menu item "Cell"->"Run All Below" to execute all cells. Navigate back to
 
 The documentation includes instructions for local installation.
 
-[![Link to Documentation](https://img.shields.io/badge/Documentation-v2008-blue)](https://mdpetters.github.io/Atmospheric-Physics-Notebooks/dev/) &mdash; **Detailed documentation of version v2008 in HTML format.**
+[![Link to Documentation](https://img.shields.io/badge/Documentation-v2008-blue)](https://mdpetters.github.io/Atmospheric-Physics-Notebooks/v2008/) &mdash; **Detailed documentation of version v2008 in HTML format.**
 
 
 ## Project Status
